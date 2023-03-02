@@ -1,0 +1,22 @@
+{
+	"name": "ActiveInsuranceCompanies",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Active Insurance Companies",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Active Insurance Companies.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

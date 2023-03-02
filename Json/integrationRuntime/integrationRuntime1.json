@@ -1,0 +1,12 @@
+{
+	"name": "integrationRuntime1",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/d02f5b39-9ef2-488c-9570-e6c747c46a8b/resourcegroups/Tides-Prod-RG-01/providers/Microsoft.DataFactory/factories/Tides-Prod-DF-01/integrationruntimes/TidesProdintegrationRuntime01",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

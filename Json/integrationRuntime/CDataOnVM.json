@@ -1,0 +1,6 @@
+{
+	"name": "CDataOnVM",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

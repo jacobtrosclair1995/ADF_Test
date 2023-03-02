@@ -1,0 +1,143 @@
+{
+	"name": "Salesagents_completelist",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Master List Agents",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Mast Sales Agent List 8-26.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "MasterList_Id",
+				"type": "String"
+			},
+			{
+				"name": "Masterlist_agencyName",
+				"type": "String"
+			},
+			{
+				"name": "MasterList_SalesagentFirstname",
+				"type": "String"
+			},
+			{
+				"name": "MasterList_SalesagentLastname",
+				"type": "String"
+			},
+			{
+				"name": "ActivityStatus",
+				"type": "String"
+			},
+			{
+				"name": "Territory",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "State",
+				"type": "String"
+			},
+			{
+				"name": "RVP",
+				"type": "String"
+			},
+			{
+				"name": "RSD",
+				"type": "String"
+			},
+			{
+				"name": "FRM",
+				"type": "String"
+			},
+			{
+				"name": "Phone_Number",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "Zip",
+				"type": "String"
+			},
+			{
+				"name": "Start_Date",
+				"type": "String"
+			},
+			{
+				"name": "Termination_Date",
+				"type": "String"
+			},
+			{
+				"name": "Tides_EmailAddress",
+				"type": "String"
+			},
+			{
+				"name": "DropBox_Access",
+				"type": "String"
+			},
+			{
+				"name": "SalesForce_License",
+				"type": "String"
+			},
+			{
+				"name": "Inactive_reason",
+				"type": "String"
+			},
+			{
+				"name": "Rep_productLine",
+				"type": "String"
+			},
+			{
+				"name": "BAA",
+				"type": "String"
+			},
+			{
+				"name": "Compliane_Agreement",
+				"type": "String"
+			},
+			{
+				"name": "Created_Date",
+				"type": "String"
+			},
+			{
+				"name": "Full Name",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Agency",
+				"type": "String"
+			},
+			{
+				"name": "Dynamics_Salesreps_Id",
+				"type": "String"
+			},
+			{
+				"name": "Dynamics_Salesreps_Name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

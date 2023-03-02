@@ -1,0 +1,39 @@
+{
+	"name": "DynamicsSalesRep",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet2",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "SalesRepsComplete.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Dyn_Rep",
+				"type": "String"
+			},
+			{
+				"name": "Dyn_ID",
+				"type": "String"
+			},
+			{
+				"name": "Agency Name",
+				"type": "String"
+			},
+			{
+				"name": "SalesAgentType",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

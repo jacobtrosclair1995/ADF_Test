@@ -1,0 +1,50 @@
+{
+	"name": "Roster_Agency2SalesRep",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SharepointQBQQDesktop",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Agency Index to QB Sales Rep",
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "Sales Agency Cross Walk 2.xlsx"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Agency Name",
+				"type": "String"
+			},
+			{
+				"name": "Sales Agent Name",
+				"type": "String"
+			},
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "FILN",
+				"type": "String"
+			},
+			{
+				"name": "Agency ID",
+				"type": "String"
+			},
+			{
+				"name": "Rep ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

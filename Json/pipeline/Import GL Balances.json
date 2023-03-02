@@ -1,0 +1,121 @@
+{
+	"name": "Import GL Balances",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import Balances",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ExchangeRate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "exchangerate",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Postingperiod",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "postingperiod",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "QB_GL_Account",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "QB_GL_Account",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "journalItemLine_debitAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "journalItemLine_debitAmount",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "journalItemLine_creditAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "journalItemLine_creditAmount",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "QB_GL_Account_Balances_GO_LIVE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "GL_Account_Balances_Go_Live",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-01-01T17:23:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

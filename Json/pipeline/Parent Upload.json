@@ -1,0 +1,68 @@
+{
+	"name": "Parent Upload",
+	"properties": {
+		"activities": [
+			{
+				"name": "Parent update",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "SELECT \n      p.[Name]\n      ,p.[Type]\n      ,p.[RecordTypeId]\n      ,p.[BillingStreet]\n      ,p.[BillingCity]\n      ,p.[BillingState]\n      ,p.[BillingPostalCode]\n      ,p.[BillingCountry]\n      ,p.[BillingStateCode]\n      ,p.[BillingCountryCode]\n      ,p.[ShippingState]\n      ,p.[Phone]\n      ,p.[Fax]\n      ,p.[Website]\n      ,p.[Description]\n      ,p.[Customer_Stage__c]\n      ,p.[Primary_Purchase_Type__c]\n      ,p.[Secondary_Customer_Type__c]\n      ,p.[NPI__c]\n      ,p.[Tax_ID__c]\n      ,p.[Sales_Agency__c]\n      ,p.[Default_Payment_Terms__c]\n      ,p.[Shipping_Terms__c]\n      ,p.[Primary_Customer_Type__c]\n      ,p.[Region__c]\n      ,p.[Primary_Specialty__c]\n      ,p.[Preferred_Invoice_Method__c]\n      ,(case when p.[Billing_Attention_Line__c] = 'Dr. Christopher Corwin & Dr. Bridget Sanders' then 'Dr Christopher Corwin& Dr Bridget Sanders' \n\t  when p.[Billing_Attention_Line__c] = 'MMH - Accounts Payable Attn: Geraldine Bailey' then 'MMH - Accts Payable Attn Geraldine Bailey'\n\t  when p.[Billing_Attention_Line__c] = 'Memorial Hermann Healthcare Accounts Payable' then 'Memorial Hermann Healthcare Accts Payable' else null end) as [Billing_Attention_Line__c]\n      ,null as [Biller_Location__c]\n      ,(case when p.rebate__c = '1' then 'True' else 'False' end) as [Rebate__c]\n      ,p.[Subregion__c]\n      ,p.[CSR_Comments__c]\n      ,p.[Reimbursement_Comments__c]\n      ,p.[MAC__c]\n      ,p.[Secondary_Specialty__c]\n      ,p.[Other_Primary_Specialty__c]\n      ,p.[Price_Book__c]\n      ,p.[DBA__c]\n      ,p.[FKA__c]\n      ,p.[Ascent_Account_Type__c]\n      ,p.[Quickbooks_Customer_External_ID__c]\n      ,'true' as [Sync_Account_to_QB__c]\n      ,p.[AR_Alert_Level__c]\n      ,p.[Main_Email__c]\n      ,p.[Agreement_Sent__c]\n      ,p.[Agreement_Signed__c]\n  FROM [convert_sf].[SF_Parent_Update] p\n\n\n  where p.[Quickbooks_Customer_External_ID__c] ='80000580-1577399416'\n -- where p.name != 'South Florida Podiatry' and p.name != 'Cincinnati Foot & Ankle Care' \n\n\n  order by name",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "convert_sf",
+							"cw_table": "SF_Parent_Update"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1_Prod",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Customer_Fix_Pipelines_temp"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-21T17:48:01Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

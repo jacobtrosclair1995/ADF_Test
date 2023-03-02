@@ -1,0 +1,134 @@
+{
+	"name": "NS_Contact_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NS_Contacts.csv",
+				"folderPath": "Netsuite_Exported_Data",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Duplicate",
+				"type": "String"
+			},
+			{
+				"name": "Date Created2",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified3",
+				"type": "String"
+			},
+			{
+				"name": "Phone",
+				"type": "String"
+			},
+			{
+				"name": "Company",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Login Access7",
+				"type": "String"
+			},
+			{
+				"name": "Fax",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address 1",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address 2",
+				"type": "String"
+			},
+			{
+				"name": "Billing City",
+				"type": "String"
+			},
+			{
+				"name": "Billing State/Province",
+				"type": "String"
+			},
+			{
+				"name": "Billing Zip",
+				"type": "String"
+			},
+			{
+				"name": "Billing Country",
+				"type": "String"
+			},
+			{
+				"name": "Job Title",
+				"type": "String"
+			},
+			{
+				"name": "Category",
+				"type": "String"
+			},
+			{
+				"name": "Office Phone",
+				"type": "String"
+			},
+			{
+				"name": "Mobile Phone",
+				"type": "String"
+			},
+			{
+				"name": "Home Phone",
+				"type": "String"
+			},
+			{
+				"name": "Date Created20",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified21",
+				"type": "String"
+			},
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "Login Access24",
+				"type": "String"
+			},
+			{
+				"name": "Role",
+				"type": "String"
+			},
+			{
+				"name": "External ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

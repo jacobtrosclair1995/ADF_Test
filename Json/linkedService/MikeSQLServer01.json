@@ -1,0 +1,16 @@
+{
+	"name": "MikeSQLServer01",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=DESKTOP-0KDVPUS;initial catalog=Tides;user id=mikelocal",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmYmQ0MTFhMC05ODYzLTRhNjYtYmQ3NC0wODI5MTc1MDE4YjgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-Mike-SQL-Server",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

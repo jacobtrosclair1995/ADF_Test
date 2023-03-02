@@ -1,0 +1,66 @@
+{
+	"name": "Fb_SerialNumbers",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource",
+						"query": "select \nlocation.locationGroupId AS LOCATIONGROUPID,\nlocationgroup.name AS locationgroupname,\ntag.locationId AS LOCATIONID,\ntag.partId AS PARTID,\ntag.id AS TAGID,\ntag.num AS TAGNUM,\ntagserialview.SERIALNUM AS SERIALNUM,\ntrackingdate.info AS DATE,\ntrackingdate.parttrackingid AS PARTTRACKINGID,\ntracktext.info AS LOT,\n\n(((1 - tag.qty) * (count(tagserialview.SERIALNUM) - 1)) + 1) AS QTY\n\nfrom\nlocation \n\njoin (tag left join tagserialview on ((tagserialview.TAGID = tag.id )) )\nleft join trackingdate on trackingdate.tagid = tag.id\nleft join tracktext on tracktext.tagid = tag.id \nleft join locationgroup on locationgroup.id = location.locationgroupid\n\nwhere\ntrackingdate.parttrackingid = 3 AND\nlocation.id = tag.locationId AND tagserialview.SERIALNUM IS NOT NULL\ngroup by location.locationGroupId, tag.locationId, tag.partId, tag.num, tagserialview.SERIALNUM,  tag.qty\n\n"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "drop table validate_sf.FBSerialLotQuery",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "FishbowlDb1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_tableName": "Test"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "validate_sf",
+							"cw_table": "FBSerialLotQuery"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzRusty"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-08-30T17:52:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

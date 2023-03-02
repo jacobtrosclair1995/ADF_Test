@@ -1,0 +1,22 @@
+{
+	"name": "Fishbowl_Historical_Costs",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "HPC report 9.11",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Fishbowl Historical Part Cost report 9.11.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

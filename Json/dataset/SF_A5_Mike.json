@@ -1,0 +1,24 @@
+{
+	"name": "SF_A5_Mike",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SF A5 Mike",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_objectApiName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SalesforceObject",
+		"schema": [],
+		"typeProperties": {
+			"objectApiName": {
+				"value": "@dataset().cw_objectApiName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,128 @@
+{
+	"name": "Account_load_incremental",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy data2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "truncate table current_cmn.customercrosswalk",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CustomerCrosswalknew",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_cmn",
+							"cw_table": "customercrosswalk"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "\n\nSelect  z.account_name as Name,\n'Customer' as Type,\nx.Billing_Street as BillingStreet, Billing_City as BillingCity, Billing_State_Province as BillingState, Billing_Zip_Postal_Code as BillingPostalCode, \nShipping_Street as ShippingStreet, Shipping_City as ShippingCity, Shipping_State_Province as ShippingState, Shipping_Zip_Postal_Code as ShippingPostalCode,\nz.fishbowl_id as Fishbowl_id__c,\nz.quickbooks_id as QuickBooks_ID__c,\n\nz.quickbooks_id as Quickbooks_Customer_External_ID__c,\nz.DynamicsID as DynamicsID__c,\nz.account_id as TidesSourceID__c,\n'Using Erin SF ID for joining ParentID in TidesSourceID__c' as TidesConversionNotes__c,\n'Erin xWalk ' as TidesSourceTable__c,\n\nnull as ParentID,\n--==================================================\nCASE \nWHEN ctype.[infoformatted]='Physician Office - Rebate' THEN 'Physician Office'\nWHEN ctype.[infoformatted]='Physician Office' THEN 'Physician Office'\nWHEN ctype.[infoformatted]='Third Party Seller' THEN 'Distributor'\nWHEN ctype.[infoformatted]='Other' THEN 'Clinical Study Site'\nWHEN ctype.[infoformatted]='Inactive' THEN 'Hospital'\nWHEN ctype.[infoformatted]='Facility' THEN 'Hospital'\nWHEN ctype.[infoformatted]='Government' THEN 'Veterans Affairs'\nWHEN ctype.[infoformatted]='Nurse Practitioner-Nursing Home' THEN 'Mobile Wound Care - Nursing Facility'\nELSE 'Physician Office'\nEND as Primary_Customer_Type__c,\n\nCASE \nWHEN ptype.[infoformatted]='Dermatology with Mohs Surgery' THEN 'Dermatology'\nWHEN ptype.[infoformatted]='Family Medicine/General Practice' THEN 'Family Practice'\nWHEN ptype.[infoformatted]='Ocular' THEN 'Ophthalmology'\nWHEN ptype.[infoformatted]='HITIDE' THEN 'Wound Care Clinic'\nWHEN ptype.[infoformatted]='Nurse Practitioner/Nursing Home Rebate' THEN 'Wound Care Clinic'\nELSE NULL\nEND as Primary_Specialty__c,\n\nconvert (bit, CASE \nWHEN ctype.[infoformatted]='Physician Office - Rebate' THEN 1\nELSE 0\nEND) as Rebate__c,\n\ncase when len(dyn.[arb_npi]) <> 10 then null else dyn.[arb_npi] end as NPI__c,\n\n\n\ndyn.[arb_taxid] as Tax_ID__c,\npb.PBID as [Price_Book__c]\n\n\n--'From NFF - not loading now' as [Preferred_Invoice_Method__c], ---- comes from nff --- leave alone for now\n--'From NFF - not loading now' as [Biller_Location__c] -- comes from nff --- leave alone for now\n\n\n\nfrom \n\n(\n\n--////////// these are QB Accounts and they are all parents \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n  SELECT [Account_ID] \n      ,[Account_Name]\n      ,[QuickBooks_ID]\n      ,[Fishbowl_ID]\n      ,[DynamicsID]\n         \n      ,null as ParentID\n\t \n  FROM current_cmn.CustomerCrossWalk where quickbooks_id is not null\n\n  -----===============================================================================\n\n  union\n  -- No QB but have a FB Account\n \n    SELECT [Account_ID] \n      ,[Account_Name]\n      ,[QuickBooks_ID]\n      ,[Fishbowl_ID]\n      ,[DynamicsID]\n         \n      ,null as ParentID\n\t \n  FROM current_cmn.CustomerCrossWalk where quickbooks_id is null and fishbowl_id is not null\n\n  \nunion\n\n--/////////////// where dynamics is parent \n\n\n  SELECT [Account_ID] \n      ,[Account_Name]\n      ,[QuickBooks_ID]\n      ,[Fishbowl_ID]\n      ,[DynamicsID]\n         \n      ,null as ParentID\n\t \n  FROM current_cmn.CustomerCrossWalk\n\n\n\nwhere dynamicsid is not null and quickbooks_id is null and parent_account_id is null) z\n\n--/////////////////////////////////////////////////////////////////////////////////////////////////////////////\n--\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\nleft join\n\ncurrent_cmn.CustomerCrossWalk x\n\non z.account_ID = x.account_id\n\n\n\nleft join\n\n[current_fb].[customfieldview] ctype  -- primary customer type  Primary_Customer_Type__c\n\non\n\nz.fishbowl_id = ctype.recordid and ctype.cfid = '17'\n\nleft join\n\n[current_fb].[customfieldview] ptype -- primary Speciality  Primary_Specialty__c\n\non \n\nz.fishbowl_id = ptype.recordid and ptype.cfid = '40'\n\n\nleft join\n\ncurrent_dyn.Account dyn\n\non z.DynamicsID = dyn.id\n\nleft join\n\n\n(select pb.id as PBID, pg.fbid From [convert_sf].[pricebook] pb\n\nleft join [current_fb].[customertopricegroup] pg\n\non pb.fbpricegroupid = pg.agid) pb\n\non z.fishbowl_id = pb.fbid\n\n\n------------ ==== where ===== -----\n\nwhere z.account_id like '%CCCCC%'\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_cmn",
+							"cw_table": "customercrosswalk"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-02T21:49:23Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

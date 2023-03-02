@@ -1,0 +1,126 @@
+{
+	"name": "NS_Open_Accounts_Payable_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Open AP (Vendor Bills) Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "tranid",
+				"type": "String"
+			},
+			{
+				"name": "entity",
+				"type": "String"
+			},
+			{
+				"name": "terms",
+				"type": "String"
+			},
+			{
+				"name": "Currency",
+				"type": "String"
+			},
+			{
+				"name": "exchangerate",
+				"type": "String"
+			},
+			{
+				"name": "duedate",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "location",
+				"type": "String"
+			},
+			{
+				"name": "usertotal",
+				"type": "String"
+			},
+			{
+				"name": "memo",
+				"type": "String"
+			},
+			{
+				"name": "trandate",
+				"type": "String"
+			},
+			{
+				"name": "postingperiod",
+				"type": "String"
+			},
+			{
+				"name": "approvalstatus",
+				"type": "String"
+			},
+			{
+				"name": "custom:Name of the field(Label of the field)15",
+				"type": "String"
+			},
+			{
+				"name": "custom:Name of the field(Label of the field)16",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemline_itemRef",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemline_quantity",
+				"type": "String"
+			},
+			{
+				"name": "purchaseitemline_units",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_rate",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_description",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_classRef",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_custom:Field1",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_custom:Field2",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

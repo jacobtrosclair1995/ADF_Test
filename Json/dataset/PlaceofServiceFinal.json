@@ -1,0 +1,67 @@
+{
+	"name": "PlaceofServiceFinal",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "PlaceofserviceFinal",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "PlaceofServiceUpdate.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "Case Number",
+				"type": "String"
+			},
+			{
+				"name": "Facility",
+				"type": "String"
+			},
+			{
+				"name": "Provider",
+				"type": "String"
+			},
+			{
+				"name": "Created On",
+				"type": "String"
+			},
+			{
+				"name": "Closed On",
+				"type": "String"
+			},
+			{
+				"name": "Case Type",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "Status Reason",
+				"type": "String"
+			},
+			{
+				"name": "Outcome",
+				"type": "String"
+			},
+			{
+				"name": "Place of Service",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

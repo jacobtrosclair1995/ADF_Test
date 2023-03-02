@@ -1,0 +1,122 @@
+{
+	"name": "Copy from REST connector into ADLS Gen2_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyData",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "GetBearerToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "RestSink",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": 10,
+						"requestMethod": "POST",
+						"writeBatchSize": 10000,
+						"additionalHeaders": {
+							"authorization": "\n@concat('Bearer ',activity('GetBearerToken').output.access_token)"
+						},
+						"httpCompressionType": "none"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "product_ID",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['productId']"
+								}
+							},
+							{
+								"source": {
+									"name": "location_ID",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['toLocationID']"
+								}
+							},
+							{
+								"source": {
+									"name": "quantity",
+									"type": "Int32"
+								},
+								"sink": {
+									"path": "$['quantity']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "rjfinventoryload"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RestResource1",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "GetBearerToken",
+				"description": "Use this Web activity to get bearer token",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://login.salesforce.com/services/oauth2/token",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": "grant_type=password&client_id=3MVG9SM6_sNwRXqu_dB9MI0vUzuEgZX0zCx66Hwmx382bionXQV.6ckxEwSH1Uw7cXoyzbSlcnExKwgd0GF.0&client_secret=AD80314D73506A34125421573E775C240DA5900686A478F9D91C1FEA172A898F&username=rfrioux@tidesmedical.com&password=Tides.Force.01"
+				}
+			}
+		],
+		"folder": {
+			"name": "zzzRusty"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-09-23T18:03:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

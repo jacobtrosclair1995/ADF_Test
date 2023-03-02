@@ -1,0 +1,19 @@
+{
+	"name": "aaaRestGoogleTest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "aaaRestGoogleTest",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "aaaMikeTesting"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "/v4/reports:batchGet"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

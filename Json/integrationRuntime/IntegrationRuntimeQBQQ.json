@@ -1,0 +1,12 @@
+{
+	"name": "IntegrationRuntimeQBQQ",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/373520cf-082f-440a-9f21-051692fbc212/resourcegroups/DevRJF/providers/Microsoft.DataFactory/factories/rjfADF2/integrationruntimes/QBQQDesktop2",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

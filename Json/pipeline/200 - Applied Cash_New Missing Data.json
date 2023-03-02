@@ -1,0 +1,127 @@
+{
+	"name": "200 - Applied Cash_New Missing Data",
+	"properties": {
+		"activities": [
+			{
+				"name": "Export Applied Cash Receipts",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select  'Payment' as Type__c\n, \na.id as account__c, \ni.id as invoice__c,\n(t.transactionamount * -1)  as Applied_Amount__c\n\n,p.id as payment__c\n,case when t.transactiontype = 'CreditMemo' then m.id else null end as credit_memo__c\n--=======================//////\n, t.transactionreferencenumber as Reference_1__c\n, i.ref_number__c as Reference_2__c\n, t.transactiontype as Reference_3__c\n\n\n\nfrom [current_qb].[invoiceLinkedTransactions] t\n\njoin\n\ncurrent_sf.account_all a\n\non \n\n(case\nwhen t.customerid = '800000D3-1401487158'  \t\tthen '800001EC-1468619846'\nwhen t.customerid = '8000016A-1437496742'     \tthen '80000253-1496780871'\nwhen t.customerid = '800001B7-1455159723'      \tthen '8000019C-1448422929'\nwhen t.customerid = '80000319-1525707283'     \tthen '800002F4-1522980784'\nwhen t.customerid = '800003A9-1540241558'     \tthen '80000506-1568654983'\nwhen t.customerid = '80000400-1550204666'     \tthen '8000056E-1575666746'\nwhen t.customerid = '80000481-1560518732'     \tthen '80000952-1632854561'\nwhen t.customerid = '8000054C-1573152649'     \tthen '800007AA-1616990426'\n\nelse t.customerid end)\n\n\n\n\n= a.Quickbooks_Customer_External_ID__c\n\n\n\n\n\njoin\n\ncurrent_sf.invoices i\n\non t.invoiceid = i.[QB_Invoice_ID__c]\nand\nt.referencenumber = i.name\n\n\njoin\n\ncurrent_sf.payments p\n\non t.transactionid = p.tidessourceid__c\n\nleft join\n\ncurrent_sf.creditmemos m\n\non\n\nt.transactionid = m.qb_credit_memo_id__c",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "invoicelinkedtransactions"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "applied_cash_receipt__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import Applied Cash Receipts",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Export Applied Cash Receipts",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_sf].[AppliedCash]') AND type in (N'U'))\nDROP TABLE [current_sf].[AppliedCash]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "applied_cash_receipt__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "AppliedCash"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzzz_fix_Data_Post_Live"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-09T23:06:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

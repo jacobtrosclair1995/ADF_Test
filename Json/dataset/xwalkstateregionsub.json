@@ -1,0 +1,63 @@
+{
+	"name": "xwalkstateregionsub",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "State Index",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "State_Regions_Sub.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Title",
+				"type": "String"
+			},
+			{
+				"name": "State Name",
+				"type": "String"
+			},
+			{
+				"name": "State Abv",
+				"type": "String"
+			},
+			{
+				"name": "MAC",
+				"type": "String"
+			},
+			{
+				"name": "Region",
+				"type": "String"
+			},
+			{
+				"name": "RVP",
+				"type": "String"
+			},
+			{
+				"name": "RSD",
+				"type": "String"
+			},
+			{
+				"name": "FRM",
+				"type": "String"
+			},
+			{
+				"name": "Sub-Region",
+				"type": "String"
+			},
+			{
+				"name": "LCD",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

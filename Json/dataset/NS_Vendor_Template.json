@@ -1,0 +1,302 @@
+{
+	"name": "NS_Vendor_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Vendor Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "entityid",
+				"type": "String"
+			},
+			{
+				"name": "isperson",
+				"type": "String"
+			},
+			{
+				"name": "salutation",
+				"type": "String"
+			},
+			{
+				"name": "firstname",
+				"type": "String"
+			},
+			{
+				"name": "middlename",
+				"type": "String"
+			},
+			{
+				"name": "lastname",
+				"type": "String"
+			},
+			{
+				"name": "companyname",
+				"type": "String"
+			},
+			{
+				"name": "url",
+				"type": "String"
+			},
+			{
+				"name": "category",
+				"type": "String"
+			},
+			{
+				"name": "comments",
+				"type": "String"
+			},
+			{
+				"name": "email",
+				"type": "String"
+			},
+			{
+				"name": "phone",
+				"type": "String"
+			},
+			{
+				"name": "fax",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "address1_addressName",
+				"type": "String"
+			},
+			{
+				"name": "address1_attention",
+				"type": "String"
+			},
+			{
+				"name": "address1_addressee",
+				"type": "String"
+			},
+			{
+				"name": "address1_phone",
+				"type": "String"
+			},
+			{
+				"name": "address1_line1",
+				"type": "String"
+			},
+			{
+				"name": "address1_line2",
+				"type": "String"
+			},
+			{
+				"name": "address1_city",
+				"type": "String"
+			},
+			{
+				"name": "address1_state",
+				"type": "String"
+			},
+			{
+				"name": "address1_zipCode",
+				"type": "String"
+			},
+			{
+				"name": "address1_country",
+				"type": "String"
+			},
+			{
+				"name": "address1_defaultShipping",
+				"type": "String"
+			},
+			{
+				"name": "address1_defaultBilling",
+				"type": "String"
+			},
+			{
+				"name": "address2_addressName",
+				"type": "String"
+			},
+			{
+				"name": "address2_attention",
+				"type": "String"
+			},
+			{
+				"name": "address2_addressee",
+				"type": "String"
+			},
+			{
+				"name": "address2_phone",
+				"type": "String"
+			},
+			{
+				"name": "address2_line1",
+				"type": "String"
+			},
+			{
+				"name": "address2_line2",
+				"type": "String"
+			},
+			{
+				"name": "address2_city",
+				"type": "String"
+			},
+			{
+				"name": "address2_state",
+				"type": "String"
+			},
+			{
+				"name": "address2_zipCode",
+				"type": "String"
+			},
+			{
+				"name": "address2_country",
+				"type": "String"
+			},
+			{
+				"name": "address2_defaultShipping",
+				"type": "String"
+			},
+			{
+				"name": "address2_defaultBilling",
+				"type": "String"
+			},
+			{
+				"name": "accountnumber",
+				"type": "String"
+			},
+			{
+				"name": "legalname",
+				"type": "String"
+			},
+			{
+				"name": "expenseaccount",
+				"type": "String"
+			},
+			{
+				"name": "payablesaccount",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "Prop_44",
+				"type": "String"
+			},
+			{
+				"name": "Prop_45",
+				"type": "String"
+			},
+			{
+				"name": "Prop_46",
+				"type": "String"
+			},
+			{
+				"name": "Prop_47",
+				"type": "String"
+			},
+			{
+				"name": "Prop_48",
+				"type": "String"
+			},
+			{
+				"name": "Prop_49",
+				"type": "String"
+			},
+			{
+				"name": "Prop_50",
+				"type": "String"
+			},
+			{
+				"name": "Prop_51",
+				"type": "String"
+			},
+			{
+				"name": "Prop_52",
+				"type": "String"
+			},
+			{
+				"name": "Prop_53",
+				"type": "String"
+			},
+			{
+				"name": "Prop_54",
+				"type": "String"
+			},
+			{
+				"name": "Prop_55",
+				"type": "String"
+			},
+			{
+				"name": "Prop_56",
+				"type": "String"
+			},
+			{
+				"name": "Prop_57",
+				"type": "String"
+			},
+			{
+				"name": "Prop_58",
+				"type": "String"
+			},
+			{
+				"name": "Prop_59",
+				"type": "String"
+			},
+			{
+				"name": "Prop_60",
+				"type": "String"
+			},
+			{
+				"name": "Prop_61",
+				"type": "String"
+			},
+			{
+				"name": "Prop_62",
+				"type": "String"
+			},
+			{
+				"name": "Prop_63",
+				"type": "String"
+			},
+			{
+				"name": "Prop_64",
+				"type": "String"
+			},
+			{
+				"name": "Prop_65",
+				"type": "String"
+			},
+			{
+				"name": "Prop_66",
+				"type": "String"
+			},
+			{
+				"name": "Prop_67",
+				"type": "String"
+			},
+			{
+				"name": "Prop_68",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,35 @@
+{
+	"name": "Copy from REST connector into ADLS Gen23",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetBearerToken",
+				"description": "Use this Web activity to get bearer token",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://login.microsoftonline.com/microsoft.onmicrosoft.com/oauth2/token",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": "grant_type=client_credentials&client_id=<service principal ID>&resource=<your resource>&client_secret=<service principal key>"
+				}
+			}
+		],
+		"folder": {
+			"name": "zzzRusty"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-09-29T12:45:12Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

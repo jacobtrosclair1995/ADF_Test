@@ -1,0 +1,31 @@
+{
+	"name": "XwalkOutComes",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Case_OutCome",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Dyn_xwalk_SalesForce_Outcome.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Outcome",
+				"type": "String"
+			},
+			{
+				"name": "Sales Force",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

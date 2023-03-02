@@ -1,0 +1,47 @@
+{
+	"name": "Salesrepcomplete",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "SalesRepsComplete.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "count",
+				"type": "String"
+			},
+			{
+				"name": "SalesAgency",
+				"type": "String"
+			},
+			{
+				"name": "SalesAgent",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "Dynid",
+				"type": "String"
+			},
+			{
+				"name": "Direct",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

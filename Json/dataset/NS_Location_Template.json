@@ -1,0 +1,106 @@
+{
+	"name": "NS_Location_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Location Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "name",
+				"type": "String"
+			},
+			{
+				"name": "parent",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "isinactive",
+				"type": "String"
+			},
+			{
+				"name": "locationtype",
+				"type": "String"
+			},
+			{
+				"name": "tranprefix",
+				"type": "String"
+			},
+			{
+				"name": "logo",
+				"type": "String"
+			},
+			{
+				"name": "usebins",
+				"type": "String"
+			},
+			{
+				"name": "makeinventoryavailable",
+				"type": "String"
+			},
+			{
+				"name": "Address_country",
+				"type": "String"
+			},
+			{
+				"name": "Address_attention",
+				"type": "String"
+			},
+			{
+				"name": "Address_Addressee",
+				"type": "String"
+			},
+			{
+				"name": "Address_phone",
+				"type": "String"
+			},
+			{
+				"name": "Address_line1",
+				"type": "String"
+			},
+			{
+				"name": "Address_line2",
+				"type": "String"
+			},
+			{
+				"name": "Address_city",
+				"type": "String"
+			},
+			{
+				"name": "Address_state",
+				"type": "String"
+			},
+			{
+				"name": "Address_zipCode",
+				"type": "String"
+			},
+			{
+				"name": "ReturnAddress_country",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

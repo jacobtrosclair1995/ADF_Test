@@ -1,0 +1,70 @@
+{
+	"name": "NS_Employee_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NS_Employees.csv",
+				"folderPath": "Netsuite_Exported_Data",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Picture",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Title",
+				"type": "String"
+			},
+			{
+				"name": "Location (no hierarchy)",
+				"type": "String"
+			},
+			{
+				"name": "Department (no hierarchy)",
+				"type": "String"
+			},
+			{
+				"name": "Subsidiary (no hierarchy)",
+				"type": "String"
+			},
+			{
+				"name": "Supervisor",
+				"type": "String"
+			},
+			{
+				"name": "Contact Info",
+				"type": "String"
+			},
+			{
+				"name": "External ID",
+				"type": "String"
+			},
+			{
+				"name": "Date Created",
+				"type": "String"
+			},
+			{
+				"name": "Internal ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

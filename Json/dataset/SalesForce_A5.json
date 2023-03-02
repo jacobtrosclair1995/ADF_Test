@@ -1,0 +1,24 @@
+{
+	"name": "SalesForce_A5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SalesForce_A5",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_objectApiName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SalesforceObject",
+		"schema": [],
+		"typeProperties": {
+			"objectApiName": {
+				"value": "@dataset().cw_objectApiName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

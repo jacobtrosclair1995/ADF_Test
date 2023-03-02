@@ -1,0 +1,24 @@
+{
+	"name": "SalesforceServiceCloud1_A5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SalesforceServiceCloud1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_objectApiName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "SalesforceServiceCloudObject",
+		"schema": [],
+		"typeProperties": {
+			"objectApiName": {
+				"value": "@dataset().cw_objectApiName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

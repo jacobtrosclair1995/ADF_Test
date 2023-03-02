@@ -1,0 +1,83 @@
+{
+	"name": "Active_Products",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Active Products",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Active_Products.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "IsActive",
+				"type": "String"
+			},
+			{
+				"name": "Donor_Controlled__c",
+				"type": "String"
+			},
+			{
+				"name": "AERP__Is_Serialized__c",
+				"type": "String"
+			},
+			{
+				"name": "AERP__Lot_Controlled__c",
+				"type": "String"
+			},
+			{
+				"name": "Family",
+				"type": "String"
+			},
+			{
+				"name": "Product_Subfamily__c",
+				"type": "String"
+			},
+			{
+				"name": "AERP__Product_Type__c",
+				"type": "String"
+			},
+			{
+				"name": "Revenue_GL_QB_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "Income Account Name",
+				"type": "String"
+			},
+			{
+				"name": "Inventory_GL_QB_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "Inventorry Account Name",
+				"type": "String"
+			},
+			{
+				"name": "COGS_GL_QB_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "COGS Account Name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

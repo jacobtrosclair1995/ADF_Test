@@ -1,0 +1,51 @@
+{
+	"name": "ManualCustXwalk",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SharepointQBQQDesktop",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Dynamics not in FB with Mat",
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "Manual_Customer_Xwalk.xlsx",
+				"folderPath": "CrosswalkTables"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Dy Account ID",
+				"type": "String"
+			},
+			{
+				"name": "Dy Facility Name",
+				"type": "String"
+			},
+			{
+				"name": "Address 1: Street 1",
+				"type": "String"
+			},
+			{
+				"name": "Address 1: City",
+				"type": "String"
+			},
+			{
+				"name": "Address 1: State/Province",
+				"type": "String"
+			},
+			{
+				"name": "FB customer ID",
+				"type": "String"
+			},
+			{
+				"name": "FB Customer Name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

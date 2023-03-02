@@ -1,0 +1,63 @@
+{
+	"name": "QB_GL_Account_Balances",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Gl_Account_Balances.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "tranId",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "exchangerate",
+				"type": "String"
+			},
+			{
+				"name": "postingperiod",
+				"type": "String"
+			},
+			{
+				"name": "trandate",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_account",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_account",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_debitAmount",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_creditAmount",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

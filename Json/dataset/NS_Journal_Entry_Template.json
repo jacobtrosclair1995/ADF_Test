@@ -1,0 +1,82 @@
+{
+	"name": "NS_Journal_Entry_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Trial Balance as of Go-Live Template_MFG.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "tranId",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "exchangerate",
+				"type": "String"
+			},
+			{
+				"name": "postingperiod",
+				"type": "String"
+			},
+			{
+				"name": "trandate",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_account",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_debitAmount",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_creditAmount",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_memo",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_department",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_class",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_location",
+				"type": "String"
+			},
+			{
+				"name": "Label of the custom field",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

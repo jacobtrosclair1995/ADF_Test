@@ -1,0 +1,17 @@
+{
+	"name": "SharepointQBQQDesktop",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\Users\\emenard\\Tides Medical\\IS - Customer Transformation Project - Data Conversion Documents",
+			"userId": "emenard@tidesmedical.com",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyZjM4OTRmNi0wOTA5LTQ0NWYtYTQ3Yi1jYzcwYTc0ZDVhOWQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IntegrationRuntimeQBQQ",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

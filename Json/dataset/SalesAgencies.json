@@ -1,0 +1,31 @@
+{
+	"name": "SalesAgencies",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Master List Principal",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Mast Sales Agent List 8-26.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Agency Name",
+				"type": "String"
+			},
+			{
+				"name": "RecordTypeID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

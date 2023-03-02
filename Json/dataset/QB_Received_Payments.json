@@ -1,0 +1,16 @@
+{
+	"name": "QB_Received_Payments",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CdataEM",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OdbcTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "\"QuickBooks\".\"ReceivePayments\""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

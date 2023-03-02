@@ -1,0 +1,115 @@
+{
+	"name": "QB_SalesAgencyConnection",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Data input Good",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Mast Sales Agent List 8-26.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "QBSalesRepID",
+				"type": "String"
+			},
+			{
+				"name": "Initial",
+				"type": "String"
+			},
+			{
+				"name": "IsActive",
+				"type": "String"
+			},
+			{
+				"name": "SREntity_Fullname",
+				"type": "String"
+			},
+			{
+				"name": "SREntity_ListId",
+				"type": "String"
+			},
+			{
+				"name": "TimeCreated",
+				"type": "String"
+			},
+			{
+				"name": "QB_Vendor_id",
+				"type": "String"
+			},
+			{
+				"name": "QB_vendor_Name",
+				"type": "String"
+			},
+			{
+				"name": "QB_Vendor_FirstName",
+				"type": "String"
+			},
+			{
+				"name": "QB_Vendor_LastName",
+				"type": "String"
+			},
+			{
+				"name": "QB_Employee_id",
+				"type": "String"
+			},
+			{
+				"name": "QB_Employee_Name",
+				"type": "String"
+			},
+			{
+				"name": "QB_Employee_Firstname",
+				"type": "String"
+			},
+			{
+				"name": "QB_Employee_LastName",
+				"type": "String"
+			},
+			{
+				"name": "FB_Agency_Id",
+				"type": "String"
+			},
+			{
+				"name": "FB_Agency_Firstname",
+				"type": "String"
+			},
+			{
+				"name": "FB_Agency_Inital",
+				"type": "String"
+			},
+			{
+				"name": "FB_Agecy_Lastname",
+				"type": "String"
+			},
+			{
+				"name": "FB_Agency_Username",
+				"type": "String"
+			},
+			{
+				"name": "MasterList_Id",
+				"type": "String"
+			},
+			{
+				"name": "Masterlist_agencyName",
+				"type": "String"
+			},
+			{
+				"name": "MasterList_SalesagentFirstname",
+				"type": "String"
+			},
+			{
+				"name": "MasterList_SalesagentLastname",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

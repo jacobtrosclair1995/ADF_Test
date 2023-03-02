@@ -1,0 +1,35 @@
+{
+	"name": "Trial_Balance_Account_Mapping",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Netsuite_Accounts",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Trial Balance as of Go-Live Template_MFG_Backup.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "QuickBooks GL Accounts",
+				"type": "String"
+			},
+			{
+				"name": "Quickbooks Account Type",
+				"type": "String"
+			},
+			{
+				"name": "Netsuite GL Accounts",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

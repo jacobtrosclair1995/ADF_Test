@@ -1,0 +1,13 @@
+{
+	"name": "TidesTestSQLPool",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SynapseDedicatedPool",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "QB_Credit_Memo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CdataEM",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OdbcTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "\"QuickBooks\".\"CreditMemos\""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
