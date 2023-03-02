@@ -1,0 +1,65 @@
+{
+	"name": "COA_GoLive2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "COA_golive.csv",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Delete",
+				"type": "String"
+			},
+			{
+				"name": "Summary",
+				"type": "String"
+			},
+			{
+				"name": "Number",
+				"type": "String"
+			},
+			{
+				"name": "Account",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "Currency",
+				"type": "String"
+			},
+			{
+				"name": "Foreign Currency Balance",
+				"type": "String"
+			},
+			{
+				"name": "Balance",
+				"type": "String"
+			},
+			{
+				"name": "Account_Full",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

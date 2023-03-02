@@ -1,0 +1,68 @@
+{
+	"name": "Serial Number Tracker SF",
+	"properties": {
+		"activities": [
+			{
+				"name": "Serial Number Tracker",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_sf].[Serial_Number_Tracker]') AND type in (N'U'))\nDROP TABLE [current_sf].[Serial_Number_Tracker]",
+						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1_Prod",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "AERP__Serial_Number_Tracker__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "Serial_Number_Tracker"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/NetSuitePrep/Inventory/FG"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-01T18:33:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

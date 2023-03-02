@@ -1,0 +1,43 @@
+{
+	"name": "ProductGLaccountXwalk",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "productGLaccountXwalk.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Product Family",
+				"type": "String"
+			},
+			{
+				"name": "Product Subfamily",
+				"type": "String"
+			},
+			{
+				"name": "Revenue GL Account",
+				"type": "String"
+			},
+			{
+				"name": "Inventory GL Account",
+				"type": "String"
+			},
+			{
+				"name": "COGS GL Account",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

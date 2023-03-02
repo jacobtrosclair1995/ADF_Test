@@ -1,0 +1,102 @@
+{
+	"name": "NS_Customer_Payment_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Customer Payments Template.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ExternalID",
+				"type": "String"
+			},
+			{
+				"name": "Customer",
+				"type": "String"
+			},
+			{
+				"name": "Payment #",
+				"type": "String"
+			},
+			{
+				"name": "Currency",
+				"type": "String"
+			},
+			{
+				"name": "Account",
+				"type": "String"
+			},
+			{
+				"name": "Date",
+				"type": "String"
+			},
+			{
+				"name": "Posting Period",
+				"type": "String"
+			},
+			{
+				"name": "Memo",
+				"type": "String"
+			},
+			{
+				"name": "Department",
+				"type": "String"
+			},
+			{
+				"name": "Payment Amount",
+				"type": "String"
+			},
+			{
+				"name": "Auto Apply",
+				"type": "String"
+			},
+			{
+				"name": "Invoice",
+				"type": "String"
+			},
+			{
+				"name": "Line",
+				"type": "String"
+			},
+			{
+				"name": "Disc. Taken",
+				"type": "String"
+			},
+			{
+				"name": "Payment",
+				"type": "String"
+			},
+			{
+				"name": "Payment Method",
+				"type": "String"
+			},
+			{
+				"name": "Check #",
+				"type": "String"
+			},
+			{
+				"name": "Recurring Payment",
+				"type": "String"
+			},
+			{
+				"name": "For Elctronic Back Payment (Direct Debit)",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

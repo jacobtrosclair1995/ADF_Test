@@ -1,0 +1,143 @@
+{
+	"name": "300 Test Upload Date diff",
+	"properties": {
+		"activities": [
+			{
+				"name": "Export Payments",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select top 10 sp.id, qp.date as receipt_date__c from current_qb.receivepayments qp\njoin  current_sf.payments sp\n\non qp.id = sp.tidessourceID__C\n\nwhere sp.id in ('a1P78000000CggNEAS',\n'a1P78000000CfoBEAS')",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "tidesdevstoragefile01/FInance/Payments"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "receivepayments"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesForce_A5",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "payment__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import Payments",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Export Payments",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_sf].[payments]') AND type in (N'U'))\nDROP TABLE [current_sf].[payments]\n",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesForce_A5",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "payment__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "payments"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzzz_fix_Data_Post_Live"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-11T22:40:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

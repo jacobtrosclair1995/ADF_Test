@@ -1,0 +1,66 @@
+{
+	"name": "Import Testing from QB new VM",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import Testing",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[invoices_test_mm]') AND type in (N'U'))\nDROP TABLE [dbo].[invoices_test_mm]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CdataQBtoVM",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_tableName": "invoices"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "dbo",
+							"cw_table": "QB_Invoices_test_mm"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/New VM Quickbooks"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-23T13:26:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

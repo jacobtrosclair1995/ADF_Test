@@ -1,0 +1,280 @@
+{
+	"name": "Upsert After Customer Load",
+	"properties": {
+		"activities": [
+			{
+				"name": "Attach sales agency to customer",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "attach customers to agencies",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "Select id, Sales_Agency__c \nfrom convert_sf.account",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "convert_sf",
+							"cw_table": "account"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import All Accounts with agencies",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Attach sales agency to customer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"query": "select * from account\nwhere type = 'Customer' and name != 'Five Stars Agency' and name != 'TEST LGMC Dermatology' and name != 'Best Agency' and name != 'TEST Acadiana Podiatry - Lafayette'",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Account"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "Account_all"
+						}
+					}
+				]
+			},
+			{
+				"name": "Attach sales agents to customers",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Import All Accounts with agencies",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "Select a.id, reps.id as Primary_Sales_Agent__c\n\n\nfrom current_sf.account_all a\nleft join [current_sf].[SalesAgencyAccounts] s on a.Sales_Agency__c  = s.id\njoin [current_roster].[SalesAgency] sagency on s.[name] = sagency.[Masterlist_agencyName] \nleft join [current_sf].[SalesReps] reps on sagency.[Full Name] = reps.[name] \nwhere reps.title2__c != 'RVP' and reps.title2__c != 'Rsd' and  reps.title2__c != 'frm'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "account_all "
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import All Accounts with agents",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Attach sales agents to customers",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"query": "select * from account\nwhere type = 'Customer' and name != 'Five Stars Agency' and name != 'TEST LGMC Dermatology' and name != 'Best Agency' and name != 'TEST Acadiana Podiatry - Lafayette'",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "truncate table current_sf.Account_all",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Account"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "Account_all"
+						}
+					}
+				]
+			},
+			{
+				"name": "attach customers to agencies",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Customer_02_Crosswalk]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/Customer"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T12:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

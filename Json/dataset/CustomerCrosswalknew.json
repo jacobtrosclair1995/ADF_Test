@@ -1,0 +1,135 @@
+{
+	"name": "CustomerCrosswalknew",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "3_Crossswalk",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CustomerCrosswalk.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Account_ID",
+				"type": "String"
+			},
+			{
+				"name": "Account_Name",
+				"type": "String"
+			},
+			{
+				"name": "QuickBooks_ID",
+				"type": "String"
+			},
+			{
+				"name": "Dynamics_Equivalent",
+				"type": "String"
+			},
+			{
+				"name": "DynamicsID",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_Address_Equivalent",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_Address_ID",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_Customer_Equivalent",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_ID",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_Inventory_Location",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_Location_ID",
+				"type": "String"
+			},
+			{
+				"name": "FKA",
+				"type": "String"
+			},
+			{
+				"name": "DBA",
+				"type": "String"
+			},
+			{
+				"name": "Future_Record_Type",
+				"type": "String"
+			},
+			{
+				"name": "Other",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Attention_Line",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_City",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_State_Province",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_State_Province_Code",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Street",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Zip_Postal_Code",
+				"type": "String"
+			},
+			{
+				"name": "Billing_Attention_Line",
+				"type": "String"
+			},
+			{
+				"name": "Billing_City",
+				"type": "String"
+			},
+			{
+				"name": "Billing_State_Province",
+				"type": "String"
+			},
+			{
+				"name": "Billing_State_Province_Code",
+				"type": "String"
+			},
+			{
+				"name": "Billing_Street",
+				"type": "String"
+			},
+			{
+				"name": "Billing_Zip_Postal_Code",
+				"type": "String"
+			},
+			{
+				"name": "Parent_Account_ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

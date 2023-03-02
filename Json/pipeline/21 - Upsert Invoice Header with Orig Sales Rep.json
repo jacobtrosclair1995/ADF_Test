@@ -1,0 +1,134 @@
+{
+	"name": "21 - Upsert Invoice Header with Orig Sales Rep",
+	"properties": {
+		"activities": [
+			{
+				"name": "Update Invoice Header with Orig Sales Rep",
+				"description": "Text Data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select   si.id ,r.[SalesRepEntityRef_FullName] as [Original_Sales_Agency__c]  , ' ' as [Original_Primary_Sales_Agent__c] \n\n,' ' as [FRM__c]\n      ,' ' as [RVP__c]\n      ,' ' as [RSD__c]\n\n\nfrom current_qb.invoices i\n\nleft join\n\n[current_qb].[SalesReps] r\n\non i.[SalesRepId] = r.id\n\njoin\n\n[current_sf].[invoices] si\n\non i.id = si.[QB_Invoice_ID__c]\n\n\n\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "SalesReps"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "invoice__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Update Invoice Header with Sales QB ID",
+				"description": "Text Data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Update Invoice Header with Orig Sales Rep",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select   si.id  ,\n\tr.id as Sales_Agency_QB_Id__c\n\n\n\nfrom current_qb.invoices i\n\nleft join\n\n[current_qb].[SalesReps] r\n\non i.[SalesRepId] = r.id\n\njoin\n\n[current_sf].[invoices] si\n\non i.id = si.[QB_Invoice_ID__c]\n\n\n\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "SalesReps"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "invoice__c"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/z_PostDataLoad_updates"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T12:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

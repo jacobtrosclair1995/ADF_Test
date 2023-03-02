@@ -1,0 +1,258 @@
+{
+	"name": "NS_All_Customer_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NS_All_Customers.csv",
+				"folderPath": "Netsuite_Exported_Data",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Duplicate",
+				"type": "String"
+			},
+			{
+				"name": "Category",
+				"type": "String"
+			},
+			{
+				"name": "Company Name",
+				"type": "String"
+			},
+			{
+				"name": "Is Individual",
+				"type": "String"
+			},
+			{
+				"name": "Sales Rep",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "Territory",
+				"type": "String"
+			},
+			{
+				"name": "Lead Source",
+				"type": "String"
+			},
+			{
+				"name": "Partner",
+				"type": "String"
+			},
+			{
+				"name": "Start Date",
+				"type": "String"
+			},
+			{
+				"name": "End Date",
+				"type": "String"
+			},
+			{
+				"name": "Reminder Days13",
+				"type": "String"
+			},
+			{
+				"name": "Date Created",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified",
+				"type": "String"
+			},
+			{
+				"name": "Primary Contact",
+				"type": "String"
+			},
+			{
+				"name": "Phone",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Fax",
+				"type": "String"
+			},
+			{
+				"name": "Alt. Contact",
+				"type": "String"
+			},
+			{
+				"name": "Office Phone",
+				"type": "String"
+			},
+			{
+				"name": "Comments",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address 1",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address 2",
+				"type": "String"
+			},
+			{
+				"name": "Billing City",
+				"type": "String"
+			},
+			{
+				"name": "Billing State/Province",
+				"type": "String"
+			},
+			{
+				"name": "Billing Zip",
+				"type": "String"
+			},
+			{
+				"name": "Billing Country",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Address",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address",
+				"type": "String"
+			},
+			{
+				"name": "Account",
+				"type": "String"
+			},
+			{
+				"name": "Login Access",
+				"type": "String"
+			},
+			{
+				"name": "Terms",
+				"type": "String"
+			},
+			{
+				"name": "Price Level",
+				"type": "String"
+			},
+			{
+				"name": "Taxable",
+				"type": "String"
+			},
+			{
+				"name": "Tax Item",
+				"type": "String"
+			},
+			{
+				"name": "Resale Number",
+				"type": "String"
+			},
+			{
+				"name": "Balance",
+				"type": "String"
+			},
+			{
+				"name": "Unbilled Orders",
+				"type": "String"
+			},
+			{
+				"name": "Credit Limit",
+				"type": "String"
+			},
+			{
+				"name": "Overdue Balance",
+				"type": "String"
+			},
+			{
+				"name": "Days Overdue",
+				"type": "String"
+			},
+			{
+				"name": "On Credit Hold",
+				"type": "String"
+			},
+			{
+				"name": "Override Credit Hold Off",
+				"type": "String"
+			},
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "Date of First Sale",
+				"type": "String"
+			},
+			{
+				"name": "Prospect Date",
+				"type": "String"
+			},
+			{
+				"name": "Reminder Days49",
+				"type": "String"
+			},
+			{
+				"name": "Primary Specialty",
+				"type": "String"
+			},
+			{
+				"name": "Customer Refund Entity Bank Subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "Customer Refund Entity Bank Format",
+				"type": "String"
+			},
+			{
+				"name": "Cust Ref File Format",
+				"type": "String"
+			},
+			{
+				"name": "Customer DD Entity Bank Subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "Customer DD Entity Bank Format",
+				"type": "String"
+			},
+			{
+				"name": "Direct Debit File Format",
+				"type": "String"
+			},
+			{
+				"name": "External ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,67 @@
+{
+	"name": "Locationtype110s",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Locations_20210803_01",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Locations_20210803_01.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "LocationGroup",
+				"type": "String"
+			},
+			{
+				"name": "LocationGroupID",
+				"type": "String"
+			},
+			{
+				"name": "customer",
+				"type": "String"
+			},
+			{
+				"name": "CustomerID",
+				"type": "String"
+			},
+			{
+				"name": "LocationID",
+				"type": "String"
+			},
+			{
+				"name": "activeflag",
+				"type": "String"
+			},
+			{
+				"name": "defaultflag",
+				"type": "String"
+			},
+			{
+				"name": "LocationName",
+				"type": "String"
+			},
+			{
+				"name": "description",
+				"type": "String"
+			},
+			{
+				"name": "pickable",
+				"type": "String"
+			},
+			{
+				"name": "LocationTypeID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

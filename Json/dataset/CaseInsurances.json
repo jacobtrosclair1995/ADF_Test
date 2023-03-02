@@ -1,0 +1,39 @@
+{
+	"name": "CaseInsurances",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "caseinsurances.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "insurancename",
+				"type": "String"
+			},
+			{
+				"name": "ins_id",
+				"type": "String"
+			},
+			{
+				"name": "PayerType",
+				"type": "String"
+			},
+			{
+				"name": "RecordTypeId",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

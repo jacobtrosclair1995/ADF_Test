@@ -1,0 +1,150 @@
+{
+	"name": "Ns_Customer_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Customer_Template.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "External ID",
+				"type": "String"
+			},
+			{
+				"name": "Customer ID",
+				"type": "String"
+			},
+			{
+				"name": "Is Individual",
+				"type": "String"
+			},
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": "Middle Name",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "Job Title",
+				"type": "String"
+			},
+			{
+				"name": "Company Name",
+				"type": "String"
+			},
+			{
+				"name": "Child Of",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "Subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "Sales Rep",
+				"type": "String"
+			},
+			{
+				"name": "Partner",
+				"type": "String"
+			},
+			{
+				"name": "Web Address",
+				"type": "String"
+			},
+			{
+				"name": "Comments",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Phone16",
+				"type": "String"
+			},
+			{
+				"name": "Mobile Phone",
+				"type": "String"
+			},
+			{
+				"name": "Home Phone",
+				"type": "String"
+			},
+			{
+				"name": "Fax",
+				"type": "String"
+			},
+			{
+				"name": "Label",
+				"type": "String"
+			},
+			{
+				"name": "Phone21",
+				"type": "String"
+			},
+			{
+				"name": "Address 1",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "Province/State",
+				"type": "String"
+			},
+			{
+				"name": "Postal Code/Zip",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Default Billing",
+				"type": "String"
+			},
+			{
+				"name": "Default Shipping",
+				"type": "String"
+			},
+			{
+				"name": "Territory",
+				"type": "String"
+			},
+			{
+				"name": "Primary Currency",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

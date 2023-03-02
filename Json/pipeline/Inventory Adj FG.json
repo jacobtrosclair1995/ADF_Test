@@ -1,0 +1,102 @@
+{
+	"name": "Inventory Adj FG",
+	"properties": {
+		"activities": [
+			{
+				"name": "Inventory Adjustment FG",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[Convert_NS].[Inventory_Adjustment_FG_SP]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Inventory Adjustment FG Pipeline",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Inventory Adjustment FG",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "Convert_NS",
+							"cw_table": "Inventory_Adjustment_FG"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Netsuite_Template_export",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": {
+								"value": "@concat('Inventory_Adjustment_FP_Template', '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/NS_Work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-22T17:05:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

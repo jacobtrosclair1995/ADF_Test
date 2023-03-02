@@ -1,0 +1,12 @@
+{
+	"name": "Tides_DEV_SQL",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=tidesdevpool.database.windows.net;initial catalog=tidesdevpool01;user id=sqladminuser",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIlRJREVTLVRFU1QtMDFfNGY2NzE2MDUtODQ0OC00MTMyLWJlMzgtNjdhZDMyZGQ2MTM4Ig0KfQ=="
+		}
+	}
+}

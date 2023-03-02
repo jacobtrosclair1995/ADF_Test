@@ -1,0 +1,47 @@
+{
+	"name": "QB_GL_Account_Balances_GO_LIVE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "2020-2022",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "TB by Month for JAN 2020- NOV 2022.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "ExchangeRate",
+				"type": "String"
+			},
+			{
+				"name": "Postingperiod",
+				"type": "String"
+			},
+			{
+				"name": "QB_GL_Account",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_debitAmount",
+				"type": "String"
+			},
+			{
+				"name": "journalItemLine_creditAmount",
+				"type": "String"
+			},
+			{
+				"name": "Net Balance",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

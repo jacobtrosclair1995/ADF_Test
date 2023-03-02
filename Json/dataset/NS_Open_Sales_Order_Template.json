@@ -1,0 +1,326 @@
+{
+	"name": "NS_Open_Sales_Order_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Open Sales Order Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "tranId",
+				"type": "String"
+			},
+			{
+				"name": "Customer",
+				"type": "String"
+			},
+			{
+				"name": "trandate",
+				"type": "String"
+			},
+			{
+				"name": "orderstatus",
+				"type": "String"
+			},
+			{
+				"name": "startdate",
+				"type": "String"
+			},
+			{
+				"name": "enddate",
+				"type": "String"
+			},
+			{
+				"name": "otherrefnum",
+				"type": "String"
+			},
+			{
+				"name": "memo",
+				"type": "String"
+			},
+			{
+				"name": "salesrep",
+				"type": "String"
+			},
+			{
+				"name": "opportunity",
+				"type": "String"
+			},
+			{
+				"name": "saleseffectivedate",
+				"type": "String"
+			},
+			{
+				"name": "leadsource",
+				"type": "String"
+			},
+			{
+				"name": "partner",
+				"type": "String"
+			},
+			{
+				"name": "Department",
+				"type": "String"
+			},
+			{
+				"name": "Class",
+				"type": "String"
+			},
+			{
+				"name": "Location",
+				"type": "String"
+			},
+			{
+				"name": "couponcode",
+				"type": "String"
+			},
+			{
+				"name": "promocode",
+				"type": "String"
+			},
+			{
+				"name": "discount-discountItem",
+				"type": "String"
+			},
+			{
+				"name": "discount-discountrate",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_item",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_quantity",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_serialNumbers",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_units",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_salesPrice",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_amount",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_description",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_isTaxable",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_priceLevel",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_department",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_class",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_location",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_custom:Field Name33",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_custom:Field Name34",
+				"type": "String"
+			},
+			{
+				"name": "itemLine_custom:Field Name35",
+				"type": "String"
+			},
+			{
+				"name": "shipdate",
+				"type": "String"
+			},
+			{
+				"name": "shipcarrier",
+				"type": "String"
+			},
+			{
+				"name": "shipmethod",
+				"type": "String"
+			},
+			{
+				"name": "shipcomplete",
+				"type": "String"
+			},
+			{
+				"name": "shipaddresslist",
+				"type": "String"
+			},
+			{
+				"name": "shipattention",
+				"type": "String"
+			},
+			{
+				"name": "shipaddressee",
+				"type": "String"
+			},
+			{
+				"name": "shipAddr1",
+				"type": "String"
+			},
+			{
+				"name": "shipAddr2",
+				"type": "String"
+			},
+			{
+				"name": "shipCity",
+				"type": "String"
+			},
+			{
+				"name": "shipState",
+				"type": "String"
+			},
+			{
+				"name": "shipZip",
+				"type": "String"
+			},
+			{
+				"name": "shipCountry",
+				"type": "String"
+			},
+			{
+				"name": "shipPhone",
+				"type": "String"
+			},
+			{
+				"name": "terms",
+				"type": "String"
+			},
+			{
+				"name": "billattention",
+				"type": "String"
+			},
+			{
+				"name": "billAddressee",
+				"type": "String"
+			},
+			{
+				"name": "billAddr1",
+				"type": "String"
+			},
+			{
+				"name": "billAddr2",
+				"type": "String"
+			},
+			{
+				"name": "billCity",
+				"type": "String"
+			},
+			{
+				"name": "billState",
+				"type": "String"
+			},
+			{
+				"name": "billZip",
+				"type": "String"
+			},
+			{
+				"name": "billCountry",
+				"type": "String"
+			},
+			{
+				"name": "billPhone",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "exchangerate",
+				"type": "String"
+			},
+			{
+				"name": "istaxable",
+				"type": "String"
+			},
+			{
+				"name": "taxitem",
+				"type": "String"
+			},
+			{
+				"name": "taxrate",
+				"type": "String"
+			},
+			{
+				"name": "tobeprinted",
+				"type": "String"
+			},
+			{
+				"name": "tobeemailed",
+				"type": "String"
+			},
+			{
+				"name": "email",
+				"type": "String"
+			},
+			{
+				"name": "tobefaxed",
+				"type": "String"
+			},
+			{
+				"name": "fax",
+				"type": "String"
+			},
+			{
+				"name": "customermessage",
+				"type": "String"
+			},
+			{
+				"name": "custbody_nsts_ci_exclude",
+				"type": "String"
+			},
+			{
+				"name": "custom:Field Name72",
+				"type": "String"
+			},
+			{
+				"name": "custom:Field Name73",
+				"type": "String"
+			},
+			{
+				"name": "custom:Field Name74",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

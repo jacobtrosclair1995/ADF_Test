@@ -1,0 +1,21 @@
+{
+	"name": "JacobTrosclairODBC",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Odbc",
+		"typeProperties": {
+			"connectionString": {
+				"type": "SecureString",
+				"value": "**********"
+			},
+			"authenticationType": "Basic",
+			"userName": "jtrosclair@tidesmedical.com",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxYjM5MjY1OC0yNjllLTQzZjYtODQxOC0yNWY3NmEyODNjNjEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "JacobTrosclairODBC2",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

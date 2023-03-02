@@ -1,0 +1,69 @@
+{
+	"name": "30 - Update Parent ID",
+	"properties": {
+		"activities": [
+			{
+				"name": "update account set parent id",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "\nselect a1.id , a2.id as parentid from \n\n\n\n(SELECT a.[Account_ID]\n     \n      ,a.[Parent_Account_ID]\n     \n  FROM [current_cmn].[CustomerCrossWalk]  a\n\n  join\n\n [current_cmn].[CustomerCrossWalk] p\n\n on a.parent_account_id = p.account_id) s\n\n join\n\n current_sf.account_all A1\n\n on s.account_id = a1.[TidesSourceID__c]\n\n join \n\n current_sf.account_all a2\n\n on \n \n s.parent_account_id = a2.[TidesSourceID__c]\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_cmn",
+							"cw_table": "customercrosswalk"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/z_PostDataLoad_updates"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T12:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,72 @@
+{
+	"name": "Location Import",
+	"properties": {
+		"activities": [
+			{
+				"name": "Location",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_NS].[Location]') AND type in (N'U'))\nDROP TABLE [current_NS].[Location]",
+						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NS_Location_Data",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_ns",
+							"cw_table": "Location"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/NS_Work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T16:18:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

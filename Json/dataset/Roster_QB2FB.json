@@ -1,0 +1,46 @@
+{
+	"name": "Roster_QB2FB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SharepointQBQQDesktop",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "QBrep to FBuser",
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "Sales Agency Cross Walk 2.xlsx"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "SalesRep Name",
+				"type": "String"
+			},
+			{
+				"name": "SalesRep First Name",
+				"type": "String"
+			},
+			{
+				"name": "SalesRep Last Name",
+				"type": "String"
+			},
+			{
+				"name": "LinkForSalesRepID",
+				"type": "String"
+			},
+			{
+				"name": "FBid",
+				"type": "String"
+			},
+			{
+				"name": "FBname",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

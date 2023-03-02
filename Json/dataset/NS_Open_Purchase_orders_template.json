@@ -1,0 +1,158 @@
+{
+	"name": "NS_Open_Purchase_orders_template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Open Purchase Order Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "vendor",
+				"type": "String"
+			},
+			{
+				"name": "purchasecontract",
+				"type": "String"
+			},
+			{
+				"name": "Employee",
+				"type": "String"
+			},
+			{
+				"name": "trandate",
+				"type": "String"
+			},
+			{
+				"name": "tranId",
+				"type": "String"
+			},
+			{
+				"name": "memo",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			},
+			{
+				"name": "location",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_item",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_quantity",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_serialNumbers",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_units",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_rate",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_amount",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_description",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_department",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_location",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_customer",
+				"type": "String"
+			},
+			{
+				"name": "purchaseItemLine_isBillable",
+				"type": "String"
+			},
+			{
+				"name": "terms",
+				"type": "String"
+			},
+			{
+				"name": "billAddressee",
+				"type": "String"
+			},
+			{
+				"name": "billAddr1",
+				"type": "String"
+			},
+			{
+				"name": "billCity",
+				"type": "String"
+			},
+			{
+				"name": "billState",
+				"type": "String"
+			},
+			{
+				"name": "billZip",
+				"type": "String"
+			},
+			{
+				"name": "billCountry",
+				"type": "String"
+			},
+			{
+				"name": "billPhone",
+				"type": "String"
+			},
+			{
+				"name": " toBePrinted",
+				"type": "String"
+			},
+			{
+				"name": "toBeEmailed",
+				"type": "String"
+			},
+			{
+				"name": "email",
+				"type": "String"
+			},
+			{
+				"name": "fax",
+				"type": "String"
+			},
+			{
+				"name": "vendorMessage",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

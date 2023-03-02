@@ -1,0 +1,55 @@
+{
+	"name": "OtherdynamicsContacts",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Customer Contacts",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Dynamics_Contacts.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Dynamics Facility ID",
+				"type": "String"
+			},
+			{
+				"name": "Facility",
+				"type": "String"
+			},
+			{
+				"name": "Dynamics Contact ID",
+				"type": "String"
+			},
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "Business Phone",
+				"type": "String"
+			},
+			{
+				"name": "Fax",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

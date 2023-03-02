@@ -1,0 +1,358 @@
+{
+	"name": "Benefits",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import Dynamics Benefit Table Data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Drop Benfits Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"queryTimeout": "10:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseOnDemandPool_Arbela",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "Tides_DR_01",
+							"cw_table": "vBenefits"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_dyn",
+							"cw_table": "Benefits"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import SF Benefits Table Structure",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Drop Benfits Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Benefit__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "Benefit__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Drop Benfits Tables",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Benefits01_DropTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Build Conversion Table",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Import Dynamics Benefit Table Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Import SF Benefits Table Structure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Benefits02_BuildConversionTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Benefits Xwalk Table",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Build Conversion Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Benefits03_Crosswalk]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Export Benfits to SF",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Benefits Xwalk Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select [Benefit_Type__c], [Case__c], [DynamicsID__c], [Covered__c], [Facility_Network_Status__c], [Physician_Network_Status__c], [Authorization_Required__c], [Effective_Date__c], [Term_Date__c], [Deductible_Amount__c], [Deductible_Met__c], [Out_of_Pocket_Max_Amount__c], [Out_of_Pocket_Max_Met__c], [Product_Copay_Amount__c], [Product_Co_Insurance_Percent__c], [Procedure_Copay_Amount__c], [Procedure_Co_Insurance_Percent__c]\n\nfrom convert_sf.Benefit__c",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "filesystemdatatest01/Case Tables/Benefits"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "convert_sf",
+							"cw_table": "Benefit__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Benefit__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Reimport Benfits data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Export Benfits to SF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "filesystemdatatest01/Case Tables/Benefits"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Benefit__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "Benefit__c"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/Case Tables"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T12:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

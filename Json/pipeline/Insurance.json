@@ -1,0 +1,538 @@
+{
+	"name": "Insurance",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import Insurance data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Drop Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ActiveInsuranceCompanies",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_dyn",
+							"cw_table": "Insurance"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import Insurance SF Table Structure",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Drop Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Account"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_SF",
+							"cw_table": "Insurance"
+						}
+					}
+				]
+			},
+			{
+				"name": "Drop Tables",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Insurance01_DropTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Build Conversion Table",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Import Insurance data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Import Insurance SF Table Structure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Insurance02_BuildConversionTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Import Parent Insurance Data to SF",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Insurance Xwalk for parents",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select DynamicsID__c, Name, RecordTypeId, parentid, Payer_Type__c\n\nfrom [convert_sf].[Insurance]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "filesystemdatatest01/Case Tables/Insurance"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "convert_sf",
+							"cw_table": "Insurance"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "Account"
+						}
+					}
+				]
+			},
+			{
+				"name": "Insurance Xwalk for parents",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Build Conversion Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[InsuranceParents03_Crosswalk]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Reimport SF Parent Insurance Data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Import Parent Insurance Data to SF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"query": "select *\nfrom account\nwhere recordtypeid = '0124x000000dQt5AAE'",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "filesystemdatatest01/Case Tables/Insurance"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "insurance"
+						}
+					}
+				]
+			},
+			{
+				"name": "Insurance Xwalk for child",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Reimport SF Parent Insurance Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[Insurancechild03_Crosswalk]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Import child insurance data to SF",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Insurance Xwalk for child",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select DynamicsID__c, Name, RecordTypeId, parentid, Payer_Type__c\n\nfrom convert_sf.insurance",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "filesystemdatatest01/Case Tables/Insurance"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "convert_sf",
+							"cw_table": "insurance "
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			},
+			{
+				"name": "Reimport Insurance Child data from SF",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Import child insurance data to SF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"query": "select *\nfrom account\nwhere recordtypeid = '0124x000000dQt5AAE'",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "truncate table current_sf.insurance",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "filesystemdatatest01/Case Tables/Insurance"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "insurance"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/Case Tables"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T12:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

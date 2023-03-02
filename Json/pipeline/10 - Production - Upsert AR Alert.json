@@ -1,0 +1,69 @@
+{
+	"name": "10 - Production - Upsert AR Alert",
+	"properties": {
+		"activities": [
+			{
+				"name": "Upsert AR Alert to SF Account",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "\nSELECT \n\t\ta.id\n\t\t--,fa.[creditlimit]\n\t  , alert.id as [AR_Alert_Level__c]\n\t  ,case when fa.creditlimit >= 250000 then fa.creditlimit else null end as [Top_Tier_Amount__c]\n\t  --,alert.name\n  FROM [current_fb].[Customer] fa\n\n  join\n\n  current_sf.account_all a\n\n  on fa.id = a.[Fishbowl_ID__c]\n\n  join\n\n\n   [current_sf].[AR_alerts__c] alert\n\n   on \n\n   (case\n\t--when (fa.creditlimit >= 0 and fa.creditlimit <= 20000)   then 20000  - removed \n\t\t when fa.creditlimit >= 0 and fa.creditlimit <= 40000 then 40000\n\t\t when fa.creditlimit > 40000 and fa.creditlimit <= 60000 then 60000\n\t\t when fa.creditlimit > 60000 and fa.creditlimit <= 100000 then 100000\n\t\t when fa.creditlimit > 100000 and fa.creditlimit <= 200000 then 200000\n\t\t when fa.creditlimit > 200000 and fa.creditlimit <= 250000 then 250000\n\t\t when fa.creditlimit > 250000 then 250000\n\t\t else 0\n\n   \n   \n   end) \n   \n   \n   \n   = alert.amount__c",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "customer_ArAlert"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "account"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/z_PostDataLoad_updates"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T12:54:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

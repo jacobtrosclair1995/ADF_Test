@@ -1,0 +1,12 @@
+{
+	"name": "IntegrationRuntimeDesktop2EM",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/373520cf-082f-440a-9f21-051692fbc212/resourcegroups/DevRJF/providers/Microsoft.DataFactory/factories/rjfADF2/integrationruntimes/IntegrationRuntimeDesktop2EM",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

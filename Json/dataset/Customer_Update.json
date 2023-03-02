@@ -1,0 +1,111 @@
+{
+	"name": "Customer_Update",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Customer_update.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "RecordTypeId",
+				"type": "String"
+			},
+			{
+				"name": "ParentId",
+				"type": "String"
+			},
+			{
+				"name": "BillingStreet",
+				"type": "String"
+			},
+			{
+				"name": "BillingCity",
+				"type": "String"
+			},
+			{
+				"name": "BillingState",
+				"type": "String"
+			},
+			{
+				"name": "BillingPostalCode",
+				"type": "String"
+			},
+			{
+				"name": "BillingCountry",
+				"type": "String"
+			},
+			{
+				"name": "BillingStateCode",
+				"type": "String"
+			},
+			{
+				"name": "Phone",
+				"type": "String"
+			},
+			{
+				"name": "Fax",
+				"type": "String"
+			},
+			{
+				"name": "Website",
+				"type": "String"
+			},
+			{
+				"name": "Customer_Stage__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Invoice_Account__c",
+				"type": "String"
+			},
+			{
+				"name": "Default_Payment_Terms__c",
+				"type": "String"
+			},
+			{
+				"name": "Preferred_Invoice_Method__c",
+				"type": "String"
+			},
+			{
+				"name": "Rebate__c",
+				"type": "String"
+			},
+			{
+				"name": "Quickbooks_Customer_External_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "Sync_Account_to_QB__c",
+				"type": "String"
+			},
+			{
+				"name": "AR_Alert_Level__c",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

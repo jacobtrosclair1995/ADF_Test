@@ -1,0 +1,72 @@
+{
+	"name": "NS Pricing WIP Erin",
+	"properties": {
+		"activities": [
+			{
+				"name": "WIP Pricing Erin",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pricingWIP]') AND type in (N'U'))\nDROP TABLE [dbo].[pricingWIP]",
+						"writeBehavior": "Insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PricingBlobErin_Mike",
+						"type": "DatasetReference",
+						"parameters": {
+							"sheetname": "WIP"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "dbo",
+							"cw_table": "pricingWIP"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/NetSuitePrep/Inventory/FG"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-01T19:24:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

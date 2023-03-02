@@ -1,0 +1,58 @@
+{
+	"name": "Import Attachment_100",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import All attributes from Dynamics",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DynamicsCrmSource",
+						"query": "<fetch mapping=\"logical\">   \n   <entity name=\"annotation\">  \n      <attribute name=\"annotationid\"/>   \n\t  <attribute name='documentbody'/>\n\t   <filter type='and'>\n              <condition attribute='createdon' operator='ge' value='2021-05-15'/>\n\t\t\t  <condition attribute='createdon' operator='lt' value='2021-09-01'/>\n       </filter>\n   </entity>  \n</fetch>  \n"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"writeBatchSize": 50,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": true
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Dynamics01",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_table": "annotation"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "dbo",
+							"cw_table": "dyn_attachments_3"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Note and Attachment/Dynamics_Notes_Attachemens"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-20T22:01:42Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

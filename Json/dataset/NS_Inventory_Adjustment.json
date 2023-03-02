@@ -1,0 +1,114 @@
+{
+	"name": "NS_Inventory_Adjustment",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Inventory Adjustment_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "tranId",
+				"type": "String"
+			},
+			{
+				"name": "customer",
+				"type": "String"
+			},
+			{
+				"name": "account",
+				"type": "String"
+			},
+			{
+				"name": "tranDate",
+				"type": "String"
+			},
+			{
+				"name": "postingPeriod",
+				"type": "String"
+			},
+			{
+				"name": "memo",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			},
+			{
+				"name": "class",
+				"type": "String"
+			},
+			{
+				"name": "location",
+				"type": "String"
+			},
+			{
+				"name": "line_item",
+				"type": "String"
+			},
+			{
+				"name": "line_adjLocation",
+				"type": "String"
+			},
+			{
+				"name": "line_units",
+				"type": "String"
+			},
+			{
+				"name": "line_adjustQtyBy",
+				"type": "String"
+			},
+			{
+				"name": "line_unitCost",
+				"type": "String"
+			},
+			{
+				"name": "line_department",
+				"type": "String"
+			},
+			{
+				"name": "line_class",
+				"type": "String"
+			},
+			{
+				"name": "line_memo",
+				"type": "String"
+			},
+			{
+				"name": "detail_serialNumbers",
+				"type": "String"
+			},
+			{
+				"name": "detail_binNumbers",
+				"type": "String"
+			},
+			{
+				"name": "detail_expirationDate",
+				"type": "String"
+			},
+			{
+				"name": "detail_quantity",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

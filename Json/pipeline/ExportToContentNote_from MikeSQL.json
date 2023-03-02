@@ -1,0 +1,76 @@
+{
+	"name": "ExportToContentNote_from MikeSQL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{'dbo'}.@{'contentnote'}"
+					},
+					{
+						"name": "Destination",
+						"value": "@{'contentnote'}"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT 'Mike 20211004 200' as [title]\n      ,[content]\n  FROM [dbo].[note001]\n\nwhere title = 'Mike 20211004 100'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": false,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MikeSQLServer01",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_table": "contentnote",
+							"cw_schema": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesForce_A5",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "contentnote"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Note and Attachment/Notes and Attachment"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-19T13:24:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

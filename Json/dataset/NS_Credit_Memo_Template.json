@@ -1,0 +1,230 @@
+{
+	"name": "NS_Credit_Memo_Template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Open Credit Memo Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "tranid",
+				"type": "String"
+			},
+			{
+				"name": "customer",
+				"type": "String"
+			},
+			{
+				"name": "job",
+				"type": "String"
+			},
+			{
+				"name": "trandate",
+				"type": "String"
+			},
+			{
+				"name": "postingperiod",
+				"type": "String"
+			},
+			{
+				"name": "otherrefnum",
+				"type": "String"
+			},
+			{
+				"name": "memo",
+				"type": "String"
+			},
+			{
+				"name": "partner",
+				"type": "String"
+			},
+			{
+				"name": "salesrep",
+				"type": "String"
+			},
+			{
+				"name": "saleseffectivedate",
+				"type": "String"
+			},
+			{
+				"name": "leadsource",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			},
+			{
+				"name": "class",
+				"type": "String"
+			},
+			{
+				"name": "location",
+				"type": "String"
+			},
+			{
+				"name": "discountitem",
+				"type": "String"
+			},
+			{
+				"name": "discountrate",
+				"type": "String"
+			},
+			{
+				"name": "custom:Field Name17",
+				"type": "String"
+			},
+			{
+				"name": "custom:Field Name18",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_item",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_quantity",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_units",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_salesPrice",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_amount",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_description",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_isTaxable",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_priceLevel",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_costestimatetype",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_invdetail_bin",
+				"type": "String"
+			},
+			{
+				"name": "itemLine1_invdetail_quantity",
+				"type": "String"
+			},
+			{
+				"name": "shipcarrier",
+				"type": "String"
+			},
+			{
+				"name": "billAttention",
+				"type": "String"
+			},
+			{
+				"name": "billAddressee",
+				"type": "String"
+			},
+			{
+				"name": "billAddr1",
+				"type": "String"
+			},
+			{
+				"name": "billAddr2",
+				"type": "String"
+			},
+			{
+				"name": "billCity",
+				"type": "String"
+			},
+			{
+				"name": "billState",
+				"type": "String"
+			},
+			{
+				"name": "billZip",
+				"type": "String"
+			},
+			{
+				"name": "billCountry",
+				"type": "String"
+			},
+			{
+				"name": "billPhone",
+				"type": "String"
+			},
+			{
+				"name": "currency",
+				"type": "String"
+			},
+			{
+				"name": "exchangerate",
+				"type": "String"
+			},
+			{
+				"name": "istaxable",
+				"type": "String"
+			},
+			{
+				"name": "taxitem",
+				"type": "String"
+			},
+			{
+				"name": "taxrate",
+				"type": "String"
+			},
+			{
+				"name": "tobeprinted",
+				"type": "String"
+			},
+			{
+				"name": "tobeemailed",
+				"type": "String"
+			},
+			{
+				"name": "email",
+				"type": "String"
+			},
+			{
+				"name": "tobefaxed",
+				"type": "String"
+			},
+			{
+				"name": "fax",
+				"type": "String"
+			},
+			{
+				"name": "customerMessage",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

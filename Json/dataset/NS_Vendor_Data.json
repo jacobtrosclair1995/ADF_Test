@@ -1,0 +1,74 @@
+{
+	"name": "NS_Vendor_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NS_Vendors.csv",
+				"folderPath": "Netsuite_Exported_Data",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Duplicate",
+				"type": "String"
+			},
+			{
+				"name": "Category",
+				"type": "String"
+			},
+			{
+				"name": "Primary Subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "Primary Contact",
+				"type": "String"
+			},
+			{
+				"name": "Phone",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Login Access",
+				"type": "String"
+			},
+			{
+				"name": "Vendor Bank Fees",
+				"type": "String"
+			},
+			{
+				"name": "Vendor Entity Bank Subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "Vendor Entity Bank Format",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

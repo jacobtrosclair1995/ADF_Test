@@ -1,0 +1,141 @@
+{
+	"name": "50 - Create zero blance Payment CM and JE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Export Payments - CM and JE",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select  a.id as account__c, t.transactionid + '--' +  left(transactiontype,1) as name,\ncast(convert(decimal(8,2), t.amount) as varchar) as amount_paid__c,\n\n'Payment' as [Entry_Type__c],\n\n\nconvert(datetime, t.date \n       AT TIME ZONE 'Central Standard Time'\n       AT TIME ZONE 'UTC' ) as [Receipt_Date__c]\n\n,t.transactionid as [TidesSourceID__c]\n  ,'[current_qb].[invoiceLinkedTransactions]' as [TidesSourceTable__c]\n      , t.transactiontype as [TidesConversionNotes__c]\n\t  ,  t.transactionreferencenumber as  [Payment_Reference_ID__c]\n\t  --,case when ai.appliedtorefid is null then 'N/A' else ai.appliedtorefid end as QB_Applied_Payment_ID__c\n\n\n,  t.transactiontype  as Payment_Method__c\n\n--,t.transactiontype\n\nfrom (select   \nsum( transactionamount * -1) as amount, \ntransactionid, transactiontype, transactionreferencenumber, customerid, max(date) as date\nfrom [current_qb].[invoiceLinkedTransactions] where transactiontype in ('CreditMemo', 'JournalEntry')\ngroup by transactionid, transactiontype, transactionreferencenumber, customerid)   t\n\njoin\n\ncurrent_sf.account_all a\n\non\n\n(case\nwhen t.customerid = '800000D3-1401487158'  \t\tthen '800001EC-1468619846'\nwhen t.customerid = '8000016A-1437496742'     \tthen '80000253-1496780871'\nwhen t.customerid = '800001B7-1455159723'      \tthen '8000019C-1448422929'\nwhen t.customerid = '80000319-1525707283'     \tthen '800002F4-1522980784'\nwhen t.customerid = '800003A9-1540241558'     \tthen '80000506-1568654983'\nwhen t.customerid = '80000400-1550204666'     \tthen '8000056E-1575666746'\nwhen t.customerid = '80000481-1560518732'     \tthen '80000952-1632854561'\nwhen t.customerid = '8000054C-1573152649'     \tthen '800007AA-1616990426'\n\nelse t.customerid end)\n\n\n\n= a.Quickbooks_Customer_External_ID__c\n\n\n\n\n\n\n\nwhere t.transactionType in  ('JournalEntry','CreditMemo')\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "tidesdevstoragefile01/FInance/Payments"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "receivepayments"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "payment__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import Payments",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Export Payments - CM and JE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_sf].[payments]') AND type in (N'U'))\nDROP TABLE [current_sf].[payments]\n",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "payment__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "payments"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzzz_fix_Data_Post_Live"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-05T17:07:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,494 @@
+{
+	"name": "NS_Serialized_Items",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NS_Serialized_Items.csv",
+				"folderPath": "Netsuite_Exported_Data",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Inactive",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Display Name",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "Purchase Description",
+				"type": "String"
+			},
+			{
+				"name": "Vendor Name",
+				"type": "String"
+			},
+			{
+				"name": "Store Display Name",
+				"type": "String"
+			},
+			{
+				"name": "Store Description",
+				"type": "String"
+			},
+			{
+				"name": "Primary Units Type",
+				"type": "String"
+			},
+			{
+				"name": "Primary Stock Unit",
+				"type": "String"
+			},
+			{
+				"name": "Primary Purchase Unit",
+				"type": "String"
+			},
+			{
+				"name": "Primary Sale Unit",
+				"type": "String"
+			},
+			{
+				"name": "Display in Web Site",
+				"type": "String"
+			},
+			{
+				"name": "Purchase Price",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Vendor",
+				"type": "String"
+			},
+			{
+				"name": "Base Price",
+				"type": "String"
+			},
+			{
+				"name": "Affirmative Solutions Price Book",
+				"type": "String"
+			},
+			{
+				"name": "Avala",
+				"type": "String"
+			},
+			{
+				"name": "BRGH Price Book",
+				"type": "String"
+			},
+			{
+				"name": "Baton Rouge General",
+				"type": "String"
+			},
+			{
+				"name": "Baylor, Scott, White Oakmont",
+				"type": "String"
+			},
+			{
+				"name": "Boulder County F&A",
+				"type": "String"
+			},
+			{
+				"name": "CGS Medicare",
+				"type": "String"
+			},
+			{
+				"name": "Cedar Park Regional Medical Ctr.",
+				"type": "String"
+			},
+			{
+				"name": "Colorado Foot & Ankle24",
+				"type": "String"
+			},
+			{
+				"name": "Colorado Foot & Ankle25",
+				"type": "String"
+			},
+			{
+				"name": "Cozad Community Hospital",
+				"type": "String"
+			},
+			{
+				"name": "Cypress Pointe Surgical Hospital",
+				"type": "String"
+			},
+			{
+				"name": "DNU Alternate Price 2",
+				"type": "String"
+			},
+			{
+				"name": "DNU Alternate Price 3",
+				"type": "String"
+			},
+			{
+				"name": "DNU testing1",
+				"type": "String"
+			},
+			{
+				"name": "DNU testing2",
+				"type": "String"
+			},
+			{
+				"name": "FASMA",
+				"type": "String"
+			},
+			{
+				"name": "FASMA & PPMG",
+				"type": "String"
+			},
+			{
+				"name": "FMOL",
+				"type": "String"
+			},
+			{
+				"name": "Fairview Health Services",
+				"type": "String"
+			},
+			{
+				"name": "First Coast Service Options",
+				"type": "String"
+			},
+			{
+				"name": "Four Corners Foot & Ankle",
+				"type": "String"
+			},
+			{
+				"name": "Golden Valley Memorial Hospital",
+				"type": "String"
+			},
+			{
+				"name": "Gothenburg Health",
+				"type": "String"
+			},
+			{
+				"name": "Great Plains Health",
+				"type": "String"
+			},
+			{
+				"name": "Grove City Methodist",
+				"type": "String"
+			},
+			{
+				"name": "HealthAlliance Hospital",
+				"type": "String"
+			},
+			{
+				"name": "Healthtrust/HCA",
+				"type": "String"
+			},
+			{
+				"name": "Heart Hospital of Austin",
+				"type": "String"
+			},
+			{
+				"name": "Hoosier Foot & Ankle",
+				"type": "String"
+			},
+			{
+				"name": "JFK North",
+				"type": "String"
+			},
+			{
+				"name": "Johnson Memorial",
+				"type": "String"
+			},
+			{
+				"name": "LSSH",
+				"type": "String"
+			},
+			{
+				"name": "Lafayette General Medical Center",
+				"type": "String"
+			},
+			{
+				"name": "Lone Star Podiatry",
+				"type": "String"
+			},
+			{
+				"name": "Mendit Medical",
+				"type": "String"
+			},
+			{
+				"name": "Miscellaneous",
+				"type": "String"
+			},
+			{
+				"name": "NCDPS",
+				"type": "String"
+			},
+			{
+				"name": "NGS Medicare",
+				"type": "String"
+			},
+			{
+				"name": "Noridian Healthcare Solutions",
+				"type": "String"
+			},
+			{
+				"name": "North Platte Surgery Center",
+				"type": "String"
+			},
+			{
+				"name": "Northwell Health Alliance GPO",
+				"type": "String"
+			},
+			{
+				"name": "Novitas Solutions",
+				"type": "String"
+			},
+			{
+				"name": "Ocular",
+				"type": "String"
+			},
+			{
+				"name": "Palmetto GBA Medicare",
+				"type": "String"
+			},
+			{
+				"name": "Parkview Health Distribution Center",
+				"type": "String"
+			},
+			{
+				"name": "Parkview Hospital (Surgical)",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - Artacent AC",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - Artacent Connect",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - Direct Purchase",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - Discounted TX (Spec)",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - HOPD/HPG Comp",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - IU Health",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - Rogue Medical Discount",
+				"type": "String"
+			},
+			{
+				"name": "Pricing - Village Podiatry",
+				"type": "String"
+			},
+			{
+				"name": "Prime Regen",
+				"type": "String"
+			},
+			{
+				"name": "Red Arch",
+				"type": "String"
+			},
+			{
+				"name": "SHLA",
+				"type": "String"
+			},
+			{
+				"name": "SMA",
+				"type": "String"
+			},
+			{
+				"name": "Shreveport Eye Clinic",
+				"type": "String"
+			},
+			{
+				"name": "Shreveport Eye Specialist",
+				"type": "String"
+			},
+			{
+				"name": "South Austin Medical Center",
+				"type": "String"
+			},
+			{
+				"name": "South Austin Surgery Center",
+				"type": "String"
+			},
+			{
+				"name": "St. Mary's Medical Center, WV",
+				"type": "String"
+			},
+			{
+				"name": "Surgery Center of Carmel",
+				"type": "String"
+			},
+			{
+				"name": "Surgicare of Miramar",
+				"type": "String"
+			},
+			{
+				"name": "Temp Pricebook",
+				"type": "String"
+			},
+			{
+				"name": "Test Pricebook Do Not Use",
+				"type": "String"
+			},
+			{
+				"name": "United Tissue Resources",
+				"type": "String"
+			},
+			{
+				"name": "WPS Medicare",
+				"type": "String"
+			},
+			{
+				"name": "William Newton Wound Center",
+				"type": "String"
+			},
+			{
+				"name": "DNU Online Price",
+				"type": "String"
+			},
+			{
+				"name": "Income Account",
+				"type": "String"
+			},
+			{
+				"name": "Asset Account",
+				"type": "String"
+			},
+			{
+				"name": "Expense/COGS Account",
+				"type": "String"
+			},
+			{
+				"name": "Costing Method",
+				"type": "String"
+			},
+			{
+				"name": "On Special",
+				"type": "String"
+			},
+			{
+				"name": "Tax Schedule",
+				"type": "String"
+			},
+			{
+				"name": "On Hand",
+				"type": "String"
+			},
+			{
+				"name": "Available",
+				"type": "String"
+			},
+			{
+				"name": "On Order",
+				"type": "String"
+			},
+			{
+				"name": "Committed",
+				"type": "String"
+			},
+			{
+				"name": "Back Ordered",
+				"type": "String"
+			},
+			{
+				"name": "Reorder Point",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Stock Level",
+				"type": "String"
+			},
+			{
+				"name": "Reorder Multiple",
+				"type": "String"
+			},
+			{
+				"name": "Drop Ship Item",
+				"type": "String"
+			},
+			{
+				"name": "Special Order Item",
+				"type": "String"
+			},
+			{
+				"name": "Copy SO Descr.",
+				"type": "String"
+			},
+			{
+				"name": "Weight",
+				"type": "String"
+			},
+			{
+				"name": "Weight Units",
+				"type": "String"
+			},
+			{
+				"name": "Class",
+				"type": "String"
+			},
+			{
+				"name": "Department",
+				"type": "String"
+			},
+			{
+				"name": "Date Created",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified",
+				"type": "String"
+			},
+			{
+				"name": "Planner",
+				"type": "String"
+			},
+			{
+				"name": "Engineering Complete",
+				"type": "String"
+			},
+			{
+				"name": "Sales Complete",
+				"type": "String"
+			},
+			{
+				"name": "Engineering Completed By",
+				"type": "String"
+			},
+			{
+				"name": "Sales Assigned",
+				"type": "String"
+			},
+			{
+				"name": "Finance Assigned",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

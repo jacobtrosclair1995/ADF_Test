@@ -1,0 +1,46 @@
+{
+	"name": "GL_Account_Balances_Go_Live",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SynapseDedicatedPool",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "exchangerate",
+				"type": "nvarchar"
+			},
+			{
+				"name": "postingperiod",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Netsuite_GL_Account",
+				"type": "nvarchar"
+			},
+			{
+				"name": "QB_GL_Account",
+				"type": "nvarchar"
+			},
+			{
+				"name": "journalItemLine_debitAmount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "journalItemLine_creditAmount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Department",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "current_qb",
+			"table": "GL_Account_Balances_Go_Live"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

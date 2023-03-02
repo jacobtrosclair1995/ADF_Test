@@ -1,0 +1,314 @@
+{
+	"name": "NFF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SharepointQBQQDesktop",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Onboarding Pipeline (7)",
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "NFF.xls"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Facility Name",
+				"type": "String"
+			},
+			{
+				"name": "Dynamics Facility Name",
+				"type": "String"
+			},
+			{
+				"name": "Form Submission Date",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "CS Rep",
+				"type": "String"
+			},
+			{
+				"name": "RSD",
+				"type": "String"
+			},
+			{
+				"name": "RVP",
+				"type": "String"
+			},
+			{
+				"name": "FRM",
+				"type": "String"
+			},
+			{
+				"name": "Sales Rep",
+				"type": "String"
+			},
+			{
+				"name": "Sales Rep Email",
+				"type": "String"
+			},
+			{
+				"name": "Agency Name",
+				"type": "String"
+			},
+			{
+				"name": "Rep Verification",
+				"type": "String"
+			},
+			{
+				"name": "Estimated Usage",
+				"type": "String"
+			},
+			{
+				"name": "Welcome Email",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl Entry",
+				"type": "String"
+			},
+			{
+				"name": "DocuSign",
+				"type": "String"
+			},
+			{
+				"name": "Welcome Box",
+				"type": "String"
+			},
+			{
+				"name": "1st Sale",
+				"type": "String"
+			},
+			{
+				"name": "2nd Sale",
+				"type": "String"
+			},
+			{
+				"name": "AR Limit Value",
+				"type": "String"
+			},
+			{
+				"name": "Archived LOC Value",
+				"type": "String"
+			},
+			{
+				"name": "Misc.",
+				"type": "String"
+			},
+			{
+				"name": "FRM Training",
+				"type": "String"
+			},
+			{
+				"name": "Lunch Program",
+				"type": "String"
+			},
+			{
+				"name": "Intake Form",
+				"type": "String"
+			},
+			{
+				"name": "Intakes Received",
+				"type": "String"
+			},
+			{
+				"name": "Intakes Approved",
+				"type": "String"
+			},
+			{
+				"name": "Percent Approved",
+				"type": "String"
+			},
+			{
+				"name": "New Facility Form",
+				"type": "String"
+			},
+			{
+				"name": "30-Day Follow Up",
+				"type": "String"
+			},
+			{
+				"name": "60-day Follow Up",
+				"type": "String"
+			},
+			{
+				"name": "Modified",
+				"type": "String"
+			},
+			{
+				"name": "Modified By",
+				"type": "String"
+			},
+			{
+				"name": "Alternate Status",
+				"type": "String"
+			},
+			{
+				"name": "Created",
+				"type": "String"
+			},
+			{
+				"name": "1st Shipment",
+				"type": "String"
+			},
+			{
+				"name": "2nd Email",
+				"type": "String"
+			},
+			{
+				"name": "2nd Shipment",
+				"type": "String"
+			},
+			{
+				"name": "AP Contact",
+				"type": "String"
+			},
+			{
+				"name": "AP Email",
+				"type": "String"
+			},
+			{
+				"name": "AP Phone",
+				"type": "String"
+			},
+			{
+				"name": "Biller Contact",
+				"type": "String"
+			},
+			{
+				"name": "Biller Email",
+				"type": "String"
+			},
+			{
+				"name": "Biller Phone",
+				"type": "String"
+			},
+			{
+				"name": "Biller Type",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address",
+				"type": "String"
+			},
+			{
+				"name": "Customer Type",
+				"type": "String"
+			},
+			{
+				"name": "GPO",
+				"type": "String"
+			},
+			{
+				"name": "ID",
+				"type": "String"
+			},
+			{
+				"name": "IDN",
+				"type": "String"
+			},
+			{
+				"name": "Individual Completing Form",
+				"type": "String"
+			},
+			{
+				"name": "Individual Completing Form Email",
+				"type": "String"
+			},
+			{
+				"name": "LOC Status",
+				"type": "String"
+			},
+			{
+				"name": "LOC Value",
+				"type": "String"
+			},
+			{
+				"name": "Main Contact",
+				"type": "String"
+			},
+			{
+				"name": "Main Email",
+				"type": "String"
+			},
+			{
+				"name": "Main Fax",
+				"type": "String"
+			},
+			{
+				"name": "Main Phone",
+				"type": "String"
+			},
+			{
+				"name": "Onboarding Record Y/N",
+				"type": "String"
+			},
+			{
+				"name": "Other Info",
+				"type": "String"
+			},
+			{
+				"name": "Practitioner Name",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Invoice Method",
+				"type": "String"
+			},
+			{
+				"name": "Purchasing Contact",
+				"type": "String"
+			},
+			{
+				"name": "Purchasing Email",
+				"type": "String"
+			},
+			{
+				"name": "Purchasing Phone",
+				"type": "String"
+			},
+			{
+				"name": "Ship City",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Address",
+				"type": "String"
+			},
+			{
+				"name": "Signer Email",
+				"type": "String"
+			},
+			{
+				"name": "Signer Name",
+				"type": "String"
+			},
+			{
+				"name": "Specialty",
+				"type": "String"
+			},
+			{
+				"name": "State",
+				"type": "String"
+			},
+			{
+				"name": "State from Ship",
+				"type": "String"
+			},
+			{
+				"name": "State:MAC",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

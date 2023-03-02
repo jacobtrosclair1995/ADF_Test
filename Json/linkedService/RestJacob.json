@@ -1,0 +1,15 @@
+{
+	"name": "RestJacob",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://tidesmedical--a5.lightning.force.com",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Basic",
+			"userName": "Jtrosclair@tidesmedical.com",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQENCNkVGOTAzLUY2ODYtNDJENi1BM0M4LUU4RDA0RTBEODQ5Ql8wZGI0ZWI4MC1lYzljLTQ3N2UtYjdkOC03YmFjOWE3YTdhYWEiDQp9"
+		}
+	}
+}

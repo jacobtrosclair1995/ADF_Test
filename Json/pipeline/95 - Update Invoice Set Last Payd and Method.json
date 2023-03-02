@@ -1,0 +1,84 @@
+{
+	"name": "95 - Update Invoice Set Last Payd and Method",
+	"properties": {
+		"activities": [
+			{
+				"name": "Update Invoice Paid",
+				"description": "Send Invoice Header to SF ",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "\nselect id, '2019-10-28 00:00:00' as Last_Payment_Date__c from current_sf.invoices  where id = 'a1S78000000GpUcEAK'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": false
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "tidesdevstoragefile01/FInance/Invoices"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "invoices"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1_A5",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "invoice__c"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzzz_fix_Data_Post_Live"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-12T14:25:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

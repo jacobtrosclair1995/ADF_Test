@@ -1,0 +1,210 @@
+{
+	"name": "NS_Services_for_Purchase_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NS_Services_for_Purchase.csv",
+				"folderPath": "Netsuite_Exported_Data",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Inactive",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Display Name",
+				"type": "String"
+			},
+			{
+				"name": "SubType",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "Purchase Description",
+				"type": "String"
+			},
+			{
+				"name": "Vendor Name",
+				"type": "String"
+			},
+			{
+				"name": "Store Display Name",
+				"type": "String"
+			},
+			{
+				"name": "Store Description",
+				"type": "String"
+			},
+			{
+				"name": "Primary Units Type",
+				"type": "String"
+			},
+			{
+				"name": "Primary Stock Unit",
+				"type": "String"
+			},
+			{
+				"name": "Primary Purchase Unit",
+				"type": "String"
+			},
+			{
+				"name": "Primary Sale Unit",
+				"type": "String"
+			},
+			{
+				"name": "Display in Web Site",
+				"type": "String"
+			},
+			{
+				"name": "Purchase Price",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Vendor",
+				"type": "String"
+			},
+			{
+				"name": "Base Price",
+				"type": "String"
+			},
+			{
+				"name": "Income Account",
+				"type": "String"
+			},
+			{
+				"name": "Asset Account",
+				"type": "String"
+			},
+			{
+				"name": "Expense/COGS Account",
+				"type": "String"
+			},
+			{
+				"name": "On Special",
+				"type": "String"
+			},
+			{
+				"name": "Tax Schedule",
+				"type": "String"
+			},
+			{
+				"name": "On Hand",
+				"type": "String"
+			},
+			{
+				"name": "Available",
+				"type": "String"
+			},
+			{
+				"name": "On Order",
+				"type": "String"
+			},
+			{
+				"name": "Committed",
+				"type": "String"
+			},
+			{
+				"name": "Back Ordered",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Stock Level",
+				"type": "String"
+			},
+			{
+				"name": "Reorder Multiple",
+				"type": "String"
+			},
+			{
+				"name": "Drop Ship Item",
+				"type": "String"
+			},
+			{
+				"name": "Special Order Item",
+				"type": "String"
+			},
+			{
+				"name": "Copy SO Descr.",
+				"type": "String"
+			},
+			{
+				"name": "Weight",
+				"type": "String"
+			},
+			{
+				"name": "Weight Units",
+				"type": "String"
+			},
+			{
+				"name": "Class",
+				"type": "String"
+			},
+			{
+				"name": "Department",
+				"type": "String"
+			},
+			{
+				"name": "Date Created",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified",
+				"type": "String"
+			},
+			{
+				"name": "Planner",
+				"type": "String"
+			},
+			{
+				"name": "Engineering Complete",
+				"type": "String"
+			},
+			{
+				"name": "Sales Complete",
+				"type": "String"
+			},
+			{
+				"name": "Engineering Completed By",
+				"type": "String"
+			},
+			{
+				"name": "Sales Assigned",
+				"type": "String"
+			},
+			{
+				"name": "Finance Assigned",
+				"type": "String"
+			},
+			{
+				"name": "Average Cost",
+				"type": "String"
+			},
+			{
+				"name": "External ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

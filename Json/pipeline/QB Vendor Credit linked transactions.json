@@ -1,0 +1,66 @@
+{
+	"name": "QB Vendor Credit linked transactions",
+	"properties": {
+		"activities": [
+			{
+				"name": "Vendor Credit linked trans",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_qb].[vendorcreditlinkedtransactions]') AND type in (N'U'))\nDROP TABLE [current_qb].[vendorcreditlinkedtransactions]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CdataQBtoVM",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_tableName": "vendorcreditlinkedtransactions"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "vendorcreditlinkedtransactions"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/New VM Quickbooks"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-14T20:25:52Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

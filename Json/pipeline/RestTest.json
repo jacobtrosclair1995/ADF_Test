@@ -1,0 +1,59 @@
+{
+	"name": "RestTest",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "{\n   \"restRequests\": {\n       \"requests\": [\n           {\n               \"toLocationId\": \"a07540000031vXdAAI\",\n               \"recordedCost\": 3,\n               \"quantity\": 100,\n               \"productId\": \"01t5400000AcxxYAAR\"\n           }\n       ]\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "RestSink",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": 10,
+						"requestMethod": "POST",
+						"writeBatchSize": 10000,
+						"httpCompressionType": "none"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "product"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RestResource1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-09-22T18:31:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,126 @@
+{
+	"name": "PurchaseOrders",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import QB PO",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_qb].[purchaseorders]') AND type in (N'U'))\nDROP TABLE [current_qb].[purchaseorders]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CdataQBtoVM",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_tableName": "purchaseorders"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "purchaseorders"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import QB PO Lines",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Import QB PO",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_qb].[purchaseorderlineitems]') AND type in (N'U'))\nDROP TABLE [current_qb].[purchaseorderlineitems]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CdataQBtoVM",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_tableName": "purchaseorderlineitems"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "purchaseorderlineitems"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/NetSuitePrep"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-12T18:18:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

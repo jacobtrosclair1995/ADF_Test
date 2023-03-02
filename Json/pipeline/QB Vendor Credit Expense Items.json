@@ -1,0 +1,66 @@
+{
+	"name": "QB Vendor Credit Expense Items",
+	"properties": {
+		"activities": [
+			{
+				"name": "Vendor Credit Expense Items",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_qb].[vendorcreditexpenseitems]') AND type in (N'U'))\nDROP TABLE [current_qb].[vendorcreditexpenseitems]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CdataQBtoVM",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_tableName": "vendorcreditexpenseitems"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "vendorcreditexpenseitems"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzmike/New VM Quickbooks"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-14T19:29:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,65 @@
+{
+	"name": "import applied cash_back",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import Applied Cash Receipts",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "applied_cash_receipt__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "dbo",
+							"cw_table": "AppliedCash_bk_20211109_01"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzzz_fix_Data_Post_Live"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-09T21:11:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

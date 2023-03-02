@@ -1,0 +1,24 @@
+{
+	"name": "jjt_Customer_ODBC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "JacobTrosclairODBC",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"NSTable": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "OdbcTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().NSTable",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,142 @@
+{
+	"name": "NS_Assembly_Item_template",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Assembly Item Template_MFG FINAL.csv",
+				"folderPath": "Netsuite_Header_only_templates",
+				"fileSystem": "xwalk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "externalid",
+				"type": "String"
+			},
+			{
+				"name": "itemId",
+				"type": "String"
+			},
+			{
+				"name": "upccode",
+				"type": "String"
+			},
+			{
+				"name": "displayname",
+				"type": "String"
+			},
+			{
+				"name": "description",
+				"type": "String"
+			},
+			{
+				"name": "subsidiary",
+				"type": "String"
+			},
+			{
+				"name": "includechildren",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			},
+			{
+				"name": "Class",
+				"type": "String"
+			},
+			{
+				"name": "costingmethod",
+				"type": "String"
+			},
+			{
+				"name": "costcategory",
+				"type": "String"
+			},
+			{
+				"name": "cost",
+				"type": "String"
+			},
+			{
+				"name": "atpmethod",
+				"type": "String"
+			},
+			{
+				"name": "leadtime",
+				"type": "String"
+			},
+			{
+				"name": "safetystocklevel",
+				"type": "String"
+			},
+			{
+				"name": "usebins",
+				"type": "String"
+			},
+			{
+				"name": "costestimatetype",
+				"type": "String"
+			},
+			{
+				"name": "costestimate",
+				"type": "String"
+			},
+			{
+				"name": "minimumquantity",
+				"type": "String"
+			},
+			{
+				"name": "weight",
+				"type": "String"
+			},
+			{
+				"name": "weightunit",
+				"type": "String"
+			},
+			{
+				"name": "pricinggroup",
+				"type": "String"
+			},
+			{
+				"name": "salesprice",
+				"type": "String"
+			},
+			{
+				"name": "itemPriceLine1_itemPriceTypeRef",
+				"type": "String"
+			},
+			{
+				"name": "cogsaccount",
+				"type": "String"
+			},
+			{
+				"name": "incomeaccount",
+				"type": "String"
+			},
+			{
+				"name": "assetaccount",
+				"type": "String"
+			},
+			{
+				"name": "taxSchedule",
+				"type": "String"
+			},
+			{
+				"name": "isinactive",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

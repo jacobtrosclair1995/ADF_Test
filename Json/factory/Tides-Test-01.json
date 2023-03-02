@@ -1,0 +1,9 @@
+{
+	"name": "Tides-Test-01",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "59bb28b6-0be5-4561-a08f-d4f42c6543f9",
+		"tenantId": "f6170c82-6ddf-411c-8236-1da929e9c35d"
+	}
+}

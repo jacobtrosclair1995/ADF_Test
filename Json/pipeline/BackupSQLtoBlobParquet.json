@@ -1,0 +1,129 @@
+{
+	"name": "BackupSQLtoBlobParquet",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "SELECT  \n\n--o.type_desc AS Object_Type\n       --,  s.name AS Schema_Name\n        '[' + o.name + ']' AS [tableName]\n    FROM  sys.objects o \n    JOIN  sys.schemas s\n      ON  s.schema_id = o.schema_id\n   WHERE  o.type = 'U' and s.name = 'current_sf'\n   \n   \n   ",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "TidesTestSQLPool",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlDWSource",
+									"sqlReaderQuery": {
+										"value": "select * from [@{variables('schema')}].@{item().tableName}",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "TidesTestSQLPool",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ParquietBlob",
+									"type": "DatasetReference",
+									"parameters": {
+										"Container": "sqltest",
+										"Folder": "@concat(variables('schema'),'\\',item().tableName)",
+										"File": "@{item().tableName}.parquet"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"schema": {
+				"type": "String",
+				"defaultValue": "current_sf"
+			},
+			"tablelist": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "zzzmike/Loop to Blog"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-31T17:29:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

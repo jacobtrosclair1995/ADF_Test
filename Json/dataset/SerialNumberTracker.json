@@ -1,0 +1,43 @@
+{
+	"name": "SerialNumberTracker",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "serialnumbers.xlsx",
+				"container": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "SerialnumTracker",
+				"type": "String"
+			},
+			{
+				"name": "SERIALNUM",
+				"type": "String"
+			},
+			{
+				"name": "SFLotID",
+				"type": "String"
+			},
+			{
+				"name": "SFDonorID",
+				"type": "String"
+			},
+			{
+				"name": "SFProductID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

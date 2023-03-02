@@ -1,0 +1,607 @@
+{
+	"name": "Child_Customers_Update",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Child_Accounts",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Parent_upload.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "IsDeleted",
+				"type": "String"
+			},
+			{
+				"name": "MasterRecordId",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "RecordTypeId",
+				"type": "String"
+			},
+			{
+				"name": "ParentId",
+				"type": "String"
+			},
+			{
+				"name": "BillingStreet",
+				"type": "String"
+			},
+			{
+				"name": "BillingCity",
+				"type": "String"
+			},
+			{
+				"name": "BillingState",
+				"type": "String"
+			},
+			{
+				"name": "BillingPostalCode",
+				"type": "String"
+			},
+			{
+				"name": "BillingCountry",
+				"type": "String"
+			},
+			{
+				"name": "BillingStateCode",
+				"type": "String"
+			},
+			{
+				"name": "BillingCountryCode",
+				"type": "String"
+			},
+			{
+				"name": "BillingLatitude",
+				"type": "String"
+			},
+			{
+				"name": "BillingLongitude",
+				"type": "String"
+			},
+			{
+				"name": "BillingGeocodeAccuracy",
+				"type": "String"
+			},
+			{
+				"name": "ShippingStreet",
+				"type": "String"
+			},
+			{
+				"name": "ShippingCity",
+				"type": "String"
+			},
+			{
+				"name": "ShippingState",
+				"type": "String"
+			},
+			{
+				"name": "ShippingPostalCode",
+				"type": "String"
+			},
+			{
+				"name": "ShippingCountry",
+				"type": "String"
+			},
+			{
+				"name": "ShippingStateCode",
+				"type": "String"
+			},
+			{
+				"name": "ShippingCountryCode",
+				"type": "String"
+			},
+			{
+				"name": "ShippingLatitude",
+				"type": "String"
+			},
+			{
+				"name": "ShippingLongitude",
+				"type": "String"
+			},
+			{
+				"name": "ShippingGeocodeAccuracy",
+				"type": "String"
+			},
+			{
+				"name": "Phone",
+				"type": "String"
+			},
+			{
+				"name": "Fax",
+				"type": "String"
+			},
+			{
+				"name": "Website",
+				"type": "String"
+			},
+			{
+				"name": "PhotoUrl",
+				"type": "String"
+			},
+			{
+				"name": "Industry",
+				"type": "String"
+			},
+			{
+				"name": "NumberOfEmployees",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "OwnerId",
+				"type": "String"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "String"
+			},
+			{
+				"name": "CreatedById",
+				"type": "String"
+			},
+			{
+				"name": "LastModifiedDate",
+				"type": "String"
+			},
+			{
+				"name": "LastModifiedById",
+				"type": "String"
+			},
+			{
+				"name": "SystemModstamp",
+				"type": "String"
+			},
+			{
+				"name": "LastActivityDate",
+				"type": "String"
+			},
+			{
+				"name": "LastViewedDate",
+				"type": "String"
+			},
+			{
+				"name": "LastReferencedDate",
+				"type": "String"
+			},
+			{
+				"name": "IsPartner",
+				"type": "String"
+			},
+			{
+				"name": "IsCustomerPortal",
+				"type": "String"
+			},
+			{
+				"name": "ChannelProgramName",
+				"type": "String"
+			},
+			{
+				"name": "ChannelProgramLevelName",
+				"type": "String"
+			},
+			{
+				"name": "Jigsaw",
+				"type": "String"
+			},
+			{
+				"name": "JigsawCompanyId",
+				"type": "String"
+			},
+			{
+				"name": "AccountSource",
+				"type": "String"
+			},
+			{
+				"name": "SicDesc",
+				"type": "String"
+			},
+			{
+				"name": "Customer_Stage__c",
+				"type": "String"
+			},
+			{
+				"name": "AERP__Active__c",
+				"type": "String"
+			},
+			{
+				"name": "AERP__CustomerPriority__c",
+				"type": "String"
+			},
+			{
+				"name": "AERP__Default_Shipping_for_Purchase_Orders__c",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Purchase_Type__c",
+				"type": "String"
+			},
+			{
+				"name": "Secondary_Customer_Type__c",
+				"type": "String"
+			},
+			{
+				"name": "Fishbowl_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "Payer_Stage__c",
+				"type": "String"
+			},
+			{
+				"name": "NPI__c",
+				"type": "String"
+			},
+			{
+				"name": "PTAN__c",
+				"type": "String"
+			},
+			{
+				"name": "Tax_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "Sales_Agency__c",
+				"type": "String"
+			},
+			{
+				"name": "QuickBooks_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Invoice_Account__c",
+				"type": "String"
+			},
+			{
+				"name": "Default_Payment_Terms__c",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Terms__c",
+				"type": "String"
+			},
+			{
+				"name": "Tax_Rate__c",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Customer_Type__c",
+				"type": "String"
+			},
+			{
+				"name": "Child",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Specialty__c",
+				"type": "String"
+			},
+			{
+				"name": "Preferred_Invoice_Method__c",
+				"type": "String"
+			},
+			{
+				"name": "Original_Owner__c",
+				"type": "String"
+			},
+			{
+				"name": "Provider_Services_Phone__c",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Attention_Line__c",
+				"type": "String"
+			},
+			{
+				"name": "Billing_Attention_Line__c",
+				"type": "String"
+			},
+			{
+				"name": "Biller_Location__c",
+				"type": "String"
+			},
+			{
+				"name": "Last_Child_Account_Suffix__c",
+				"type": "String"
+			},
+			{
+				"name": "Deactivated_Account__c",
+				"type": "String"
+			},
+			{
+				"name": "Provider_Portal_Website__c",
+				"type": "String"
+			},
+			{
+				"name": "Rebate__c",
+				"type": "String"
+			},
+			{
+				"name": "Subregion__c",
+				"type": "String"
+			},
+			{
+				"name": "Related_GPO__c",
+				"type": "String"
+			},
+			{
+				"name": "Related_IDN__c",
+				"type": "String"
+			},
+			{
+				"name": "CSR_Comments__c",
+				"type": "String"
+			},
+			{
+				"name": "Reimbursement_Comments__c",
+				"type": "String"
+			},
+			{
+				"name": "MAC__c",
+				"type": "String"
+			},
+			{
+				"name": "Secondary_Specialty__c",
+				"type": "String"
+			},
+			{
+				"name": "Tertiary_Specialty__c",
+				"type": "String"
+			},
+			{
+				"name": "Other_Primary_Specialty__c",
+				"type": "String"
+			},
+			{
+				"name": "Other_Secondary_Specialty__c",
+				"type": "String"
+			},
+			{
+				"name": "Other_Tertiary_Specialty__c",
+				"type": "String"
+			},
+			{
+				"name": "Top_Tier_Amount__c",
+				"type": "String"
+			},
+			{
+				"name": "dnuAR_Alert__c",
+				"type": "String"
+			},
+			{
+				"name": "Price_Book__c",
+				"type": "String"
+			},
+			{
+				"name": "Web_Form__c",
+				"type": "String"
+			},
+			{
+				"name": "TdesConversionNotes__c",
+				"type": "String"
+			},
+			{
+				"name": "TidesConversionID__c",
+				"type": "String"
+			},
+			{
+				"name": "DBA__c",
+				"type": "String"
+			},
+			{
+				"name": "FKA__c",
+				"type": "String"
+			},
+			{
+				"name": "Account_Number__c",
+				"type": "String"
+			},
+			{
+				"name": "Policy_ID_Number__c",
+				"type": "String"
+			},
+			{
+				"name": "Sales_Agency_Stage__c",
+				"type": "String"
+			},
+			{
+				"name": "Prior_Auth_Fax__c",
+				"type": "String"
+			},
+			{
+				"name": "Ascent_Account_Type__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Needs_Update__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Sync_Messages__c",
+				"type": "String"
+			},
+			{
+				"name": "Quickbooks_Customer_External_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "Quickbooks_Vendor_External_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_First_Sync_Time__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Last_Updated_Time__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Error_Check_Required__c",
+				"type": "String"
+			},
+			{
+				"name": "Invoice_Total__c",
+				"type": "String"
+			},
+			{
+				"name": "TidesConversionNotes__c",
+				"type": "String"
+			},
+			{
+				"name": "Payer_Type__c",
+				"type": "String"
+			},
+			{
+				"name": "LCD__c",
+				"type": "String"
+			},
+			{
+				"name": "Sync_Account_to_QB__c",
+				"type": "String"
+			},
+			{
+				"name": "Applied_Payments__c",
+				"type": "String"
+			},
+			{
+				"name": "Invoice_Balance__c",
+				"type": "String"
+			},
+			{
+				"name": "AR_Alert_Level__c",
+				"type": "String"
+			},
+			{
+				"name": "Balance_vs_Alert__c",
+				"type": "String"
+			},
+			{
+				"name": "Main_Email__c",
+				"type": "String"
+			},
+			{
+				"name": "AR_Alert__c",
+				"type": "String"
+			},
+			{
+				"name": "DynamicsID__c",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Sales_Agent__c",
+				"type": "String"
+			},
+			{
+				"name": "Sales_Agency_Name__c",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Sales_Agent_Name__c",
+				"type": "String"
+			},
+			{
+				"name": "TidesSourceTable__c",
+				"type": "String"
+			},
+			{
+				"name": "TidesSourceID__c",
+				"type": "String"
+			},
+			{
+				"name": "Agreement_Sent__c",
+				"type": "String"
+			},
+			{
+				"name": "Welcome_Email__c",
+				"type": "String"
+			},
+			{
+				"name": "Welcome_Box__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Sales_Rep_ID__c",
+				"type": "String"
+			},
+			{
+				"name": "rsdoc__RS_Document_Error__c",
+				"type": "String"
+			},
+			{
+				"name": "rsdoc__RS_Document_to_Merge__c",
+				"type": "String"
+			},
+			{
+				"name": "Agreement_Status__c",
+				"type": "String"
+			},
+			{
+				"name": "QB_Customer_ID_For_Sync__c",
+				"type": "String"
+			},
+			{
+				"name": "Agreement_Signed__c",
+				"type": "String"
+			},
+			{
+				"name": "Reimbursement_Training__c",
+				"type": "String"
+			},
+			{
+				"name": "Products__c",
+				"type": "String"
+			},
+			{
+				"name": "Credit_Memo_Total__c",
+				"type": "String"
+			},
+			{
+				"name": "Welcome_Box_Tracking__c",
+				"type": "String"
+			},
+			{
+				"name": "Agreement_N_A__c",
+				"type": "String"
+			},
+			{
+				"name": "Reimbursement_N_A__c",
+				"type": "String"
+			},
+			{
+				"name": "Welcome_Box_N_A__c",
+				"type": "String"
+			},
+			{
+				"name": "Welcome_Email_N_A__c",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,31 @@
+{
+	"name": "State_lookup",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tidesdatastoragetest01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "xWalkStateName",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "State_xWalk_State_Name.xlsx",
+				"fileSystem": "xwalk"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Abbreviation",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,131 @@
+{
+	"name": "zzzz DONT USE Upsert Payment Date",
+	"properties": {
+		"activities": [
+			{
+				"name": "import payments",
+				"description": "Include the SF Invoice ID",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Upsert Payment Receive Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_sf].[payments]') AND type in (N'U'))\nDROP TABLE [current_sf].[payments]\n",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "payment__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "payments"
+						}
+					}
+				]
+			},
+			{
+				"name": "Upsert Payment Receive Date",
+				"description": "Include the SF Invoice ID",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "select id, \n\n\n convert(datetime, receipt_date__c\n       AT TIME ZONE 'Central Standard Time'\n       AT TIME ZONE 'UTC') as receipt_date__c\n\n\t  \n\nfrom current_sf.payments where id in \n\n('a1P78000000ChkKEAS',\n'a1P78000000ChJlEAK',\n'a1P78000000Ci2gEAC')\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "upsert",
+						"externalIdFieldName": "id",
+						"ignoreNullValues": true
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "payments"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "payment__c"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "zzzzz_fix_Data_Post_Live"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-08T22:38:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

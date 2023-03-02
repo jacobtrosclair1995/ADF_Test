@@ -1,0 +1,154 @@
+{
+	"name": "5-Applied Cash DO NOT Use",
+	"properties": {
+		"activities": [
+			{
+				"name": "Export Applied Cash Receipts",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Drop Applied Cash Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": "--select  'Payment' as Type__c, a.id as account__c, si.id as invoice__c,\np.id as payment__c,   (-1*i.appliedamount) as   [Applied_Amount__c]\n\nfrom [current_qb].[invoices] i\n\njoin\n\ncurrent_sf.account_all a\n\non i.customerid = a.quickbooks_ID__c\n\njoin\n\ncurrent_sf.invoices si\n\non i.id = si.qb_invoice_ID__c\n\nleft join \n\n(select top 1 id from current_sf.payments) p \n\non 1 = 1\n\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SalesforceServiceCloudSink",
+						"writeBatchSize": 5000,
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_qb",
+							"cw_table": "invoices"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "applied_cash_receipt__c"
+						}
+					}
+				]
+			},
+			{
+				"name": "Import Applied Cash Receipts",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Export Applied Cash Receipts",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SalesforceServiceCloudSource",
+						"readBehavior": "query"
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[current_sf].[AppliedCash]') AND type in (N'U'))\nDROP TABLE [current_sf].[AppliedCash]",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SalesforceServiceCloud1",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_objectApiName": "applied_cash_receipt__c"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SynapseDedicatedPool2",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_schema": "current_sf",
+							"cw_table": "AppliedCash"
+						}
+					}
+				]
+			},
+			{
+				"name": "Drop Applied Cash Tables",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[SF_Convert].[AppliedCash01_DropTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SynapseDedicatedPool",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "zzz_GoLivePipelines/Finance"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-04T22:00:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
