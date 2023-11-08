@@ -1,10 +1,6 @@
 {
 	"name": "NFF",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "SharepointQBQQDesktop",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
